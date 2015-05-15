@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/boombuler/termui/css"
 	"github.com/boombuler/termui/css/internal"
+	"github.com/huin/goutil/codegen"
 	"os"
 )
 
@@ -33,8 +34,13 @@ func generate(filename string, packagename string, methodname string, content in
 	if packagename == "" {
 		packagename = "style"
 	}
-	fOut, err := os.Create(filename)
+	file, err := os.Create(filename)
 	if err != nil {
+		return err
+	}
+	fOut, err := codegen.NewGofmtWriteCloser(file)
+	if err != nil {
+		file.Close()
 		return err
 	}
 	defer fOut.Close()
@@ -43,13 +49,13 @@ func generate(filename string, packagename string, methodname string, content in
 
 	w.WriteString(fmt.Sprintf("package %v", packagename) + nl + nl)
 	w.WriteString(`import "github.com/boombuler/termui/css"` + nl + nl)
-	w.WriteString(`func ` + methodname + `() css.SelectorStyles {` + nl)
+	w.WriteString(`func ` + methodname + `() css.SelectorStyles {`)
 	w.WriteString(makeStyleFn)
-	w.WriteString(`    return css.SelectorStyles {` + nl)
+	w.WriteString(`return css.SelectorStyles {` + nl)
 	for _, rule := range content {
 		generate_rule(w, rule)
 	}
-	w.WriteString(`    }` + nl)
+	w.WriteString(`}` + nl)
 	w.WriteString(`}` + nl)
 	return w.Flush()
 }
@@ -58,26 +64,26 @@ func write_value(w *bufio.Writer, val interface{}) {
 	if strs, ok := val.([]string); ok {
 		w.WriteString("[]string {" + nl)
 		for _, s := range strs {
-			w.WriteString("                    \"" + s + "\", " + nl)
+			w.WriteString("\"" + s + "\", " + nl)
 		}
-		w.WriteString("                }")
+		w.WriteString("}")
 	} else {
 		w.WriteString(fmt.Sprintf("%v", val))
 	}
 }
 
 func generate_rule(w *bufio.Writer, r internal.Rule) {
-	w.WriteString(`        css.SelectorStyle {` + nl)
-	w.WriteString(`            Selector: `)
+	w.WriteString(`css.SelectorStyle {` + nl)
+	w.WriteString(`Selector: `)
 	w.WriteString(selector_to_str(r.Selector) + `,` + nl)
-	w.WriteString(`            Style: makeStyle(` + nl)
+	w.WriteString(`Style: makeStyle(` + nl)
 	for _, p := range r.Values {
-		w.WriteString(fmt.Sprintf("                "+styleParamDef+"{\"%v\", ", p.Name))
+		w.WriteString(fmt.Sprintf(styleParamDef+"{\"%v\", ", p.Name))
 		write_value(w, p.Value)
 		w.WriteString("}," + nl)
 	}
-	w.WriteString(`            ),` + nl)
-	w.WriteString(`        },` + nl)
+	w.WriteString(`),` + nl)
+	w.WriteString(`},` + nl)
 }
 
 func selector_to_str(sel css.Selector) string {
@@ -85,33 +91,37 @@ func selector_to_str(sel css.Selector) string {
 		return "css.AnySelector"
 	} else if sel == css.BodySelector {
 		return "css.BodySelector"
-	} else if name, ok := sel.(css.NameSelector); ok {
-		return fmt.Sprintf("css.NameSelector(\"%v\")", string(name))
-	} else if name, ok := sel.(css.ClassSelector); ok {
-		return fmt.Sprintf("css.ClassSelector(\"%v\")", string(name))
-	} else if name, ok := sel.(css.IdSelector); ok {
-		return fmt.Sprintf("css.IdSelector(\"%v\")", string(name))
-	} else if ps, ok := sel.(css.ParentSelector); ok {
-		return fmt.Sprintf("css.ParentSelector{%v, %v}", selector_to_str(ps.Parent), selector_to_str(ps.Child))
-	} else if name, ok := sel.(css.PseudoClassSelector); ok {
-		return fmt.Sprintf("css.PseudoClassSelector(\"%v\")", string(name))
-	} else if ps, ok := sel.(css.AnyParentSelector); ok {
-		return fmt.Sprintf("css.AnyParentSelector{%v, %v}", selector_to_str(ps.Parent), selector_to_str(ps.Child))
-	} else if as, ok := sel.(css.AndSelector); ok {
-		if len(as) == 1 {
-			return selector_to_str(as[0])
-		} else {
-			b := new(bytes.Buffer)
-			b.WriteString("css.AndSelector{")
-			b.WriteString(nl)
-			for _, s := range as {
-				b.WriteString(selector_to_str(s))
-				b.WriteRune(',')
+	} else {
+		switch s := sel.(type) {
+		case css.NameSelector:
+			return fmt.Sprintf("css.NameSelector(\"%v\")", string(s))
+		case css.ClassSelector:
+			return fmt.Sprintf("css.ClassSelector(\"%v\")", string(s))
+		case css.IdSelector:
+			return fmt.Sprintf("css.IdSelector(\"%v\")", string(s))
+		case css.ParentSelector:
+			return fmt.Sprintf("css.ParentSelector{%v, %v}", selector_to_str(s.Parent), selector_to_str(s.Child))
+		case css.PseudoClassSelector:
+			return fmt.Sprintf("css.PseudoClassSelector(\"%v\")", string(s))
+		case css.AnyParentSelector:
+			return fmt.Sprintf("css.AnyParentSelector{%v, %v}", selector_to_str(s.Parent), selector_to_str(s.Child))
+		case css.AndSelector:
+			if len(s) == 1 {
+				return selector_to_str(s[0])
+			} else {
+				b := new(bytes.Buffer)
+				b.WriteString("css.AndSelector{")
 				b.WriteString(nl)
+				for _, sc := range s {
+					b.WriteString(selector_to_str(sc))
+					b.WriteRune(',')
+					b.WriteString(nl)
+				}
+				b.WriteString("}")
+				return b.String()
 			}
-			b.WriteString("}")
-			return b.String()
+		default:
+			panic("Unknown Selector Type!")
 		}
 	}
-	panic("Invalid Selector Type!")
 }

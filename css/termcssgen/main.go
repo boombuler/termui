@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"os/exec"
 )
 
 var pack = flag.String("p", "", "Sets the package name")
@@ -30,6 +31,10 @@ func main() {
 	}
 
 	if err := generate(*out, *pack, *meth, o); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := exec.Command("gofmt", "-s=true", *out).Run(); err != nil {
 		log.Fatal(err)
 	}
 }
