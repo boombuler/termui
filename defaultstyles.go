@@ -11,7 +11,7 @@ func init() {
 		ForegroundProperty: termbox.ColorDefault,
 	})
 
-	textbox := css.ClassSelector("textbox")
+	textbox := css.NameSelector("textbox")
 	css.AddUserAgentStyle(textbox, css.Style{
 		BackgroundProperty: termbox.ColorWhite,
 		ForegroundProperty: termbox.ColorBlack,
