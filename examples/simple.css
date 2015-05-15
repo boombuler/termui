@@ -1,0 +1,18 @@
+body {
+    background: white;
+    color: black;
+}
+
+border {
+    background: red;
+    gravity: left | right ;
+}
+
+border > border {
+    background: yellow;
+    color: magenta;
+}
+
+text {
+    color: white;
+}

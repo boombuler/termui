@@ -1,0 +1,63 @@
+!blockComment    : '/' '*' {. | '*'} '*' '/' ;
+!whitespace      : ' ' | '\t' | '\n' | '\r' ;
+
+_id_chars        : 'a' - 'z' | 'A' - 'Z' | '_' | '-';
+_digits          :  '0' - '9';
+id               : _id_chars {_id_chars | _digits};
+int              : { _digits};
+float            : [_digits] '.' _digits { _digits};
+
+<<
+import css "github.com/boombuler/termui/css"
+import internal "github.com/boombuler/termui/css/internal"
+>>
+
+
+CSS              : Rules                          <<$0, nil>>
+                 | error;
+
+Rules            : Rule Rules                     << append($1.(internal.Rules), $0.(internal.Rule)), nil>>
+                 | Rule                           << internal.Rules{ $0.(internal.Rule) }, nil>>
+                 ;
+Rule             : Selector "{" Properties "}"    << internal.Rule{ $0.(css.Selector), $2.(internal.PropertyValues)}, nil>>
+                 ;
+
+Selector         : SimpleSelector                 <<$0, nil>>
+                 | ChildSelector
+                 | ChildAnySelector
+                 ;
+
+SimpleSelector   : NameSelector                   <<$0, nil>>
+                 | ClassSelector                  <<$0, nil>>
+                 | IdSelector                     <<$0, nil>>
+                 | FixedSelector                  <<$0, nil>>
+                 ;
+
+FixedSelector    : "*"                            <<css.AnySelector, nil>>
+                 | "body"                         <<css.BodySelector, nil>>
+                 ;
+
+NameSelector     : id                             <<css.NameSelector(str($0)), nil>>
+                 ;
+ClassSelector    : "."id                          <<css.ClassSelector(str($1)), nil>>
+                 ;
+IdSelector       : "#"id                          <<css.IdSelector(str($0)), nil>>
+                 ;
+ChildSelector    : Selector ">" SimpleSelector    <<css.ParentSelector{$0.(css.Selector), $2.(css.Selector)}, nil>>
+                 ;
+ChildAnySelector : Selector SimpleSelector
+                 ;
+
+Value            : id                              <<str($0), nil>>
+                 | int                             <<str($0), nil>>
+                 | float                           <<str($0), nil>>
+                 ;
+
+Values           : Value "|" Values                <<append($2.([]string), $0.(string)), nil>>
+                 | Value                           <<[]string{$0.(string)}, nil>>
+                 ;
+
+Properties       : id ":" Values ";" Properties    <<append($4.(internal.PropertyValues), internal.PropertyValue { str($0), $2 }), nil>>
+                 | id ":" Values ";"               <<internal.PropertyValues{ internal.PropertyValue { str($0), $2 } }, nil >>
+                 ;
+
