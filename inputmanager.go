@@ -17,17 +17,27 @@ func newInputManager(root Element) *intputManager {
 	return im
 }
 
-func (im *intputManager) Next() {
+func (im *intputManager) getFocusableItems() []FocusElement {
 	itmStack := []Element{im.root}
 	items := make([]FocusElement, 0)
 	for len(itmStack) > 0 {
 		lastIdx := len(itmStack) - 1
 		cur := itmStack[lastIdx]
+		childs := cur.Children()
+		revChilds := make([]Element, len(childs))
+		for i, c := range childs {
+			revChilds[len(childs)-i-1] = c
+		}
+
 		if fcur, ok := cur.(FocusElement); ok {
 			items = append(items, fcur)
 		}
-		itmStack = append(itmStack[:lastIdx], cur.Children()...)
+		itmStack = append(itmStack[:lastIdx], revChilds...)
 	}
+	return items
+}
+func (im *intputManager) Next() {
+	items := im.getFocusableItems()
 	if im.current != nil {
 		im.current.RemovePseudoClass(pclass_Focused)
 		im.current.SetFocused(false)
