@@ -15,20 +15,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
-			shift(3),		/* error */
-			nil,		/* { */
-			nil,		/* } */
-			shift(14),		/* * */
-			shift(15),		/* body */
-			shift(16),		/* id */
-			shift(17),		/* . */
-			shift(18),		/* : */
-			shift(19),		/* # */
-			nil,		/* > */
+			shift(2),		/* ws */
+			shift(4),		/* error */
+			shift(13),		/* # */
+			shift(14),		/* id */
+			shift(15),		/* : */
+			shift(16),		/* . */
+			shift(17),		/* * */
+			shift(18),		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -38,20 +39,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			accept(true),		/* $ */
+			nil,		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -60,67 +62,70 @@ var actionTab = actionTable{
 				canRecover: false,
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
-			reduce(1),		/* $, reduce: CSS */
+			nil,		/* $ */
+			nil,		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
-			nil,		/* * */
-			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
+			shift(13),		/* # */
+			shift(14),		/* id */
+			shift(15),		/* : */
+			shift(16),		/* . */
+			shift(17),		/* * */
+			shift(18),		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
 	},
 	actionRow{ // S3
-				canRecover: true,
+				canRecover: false,
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			reduce(2),		/* $, reduce: CSS */
+			nil,		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
 	},
 	actionRow{ // S4
-				canRecover: false,
+				canRecover: true,
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
-			reduce(4),		/* $, reduce: Rules */
+			reduce(3),		/* $, reduce: CSS */
+			nil,		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
-			shift(14),		/* * */
-			shift(15),		/* body */
-			shift(16),		/* id */
-			shift(17),		/* . */
-			shift(18),		/* : */
-			shift(19),		/* # */
-			nil,		/* > */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -129,21 +134,22 @@ var actionTab = actionTable{
 				canRecover: false,
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
-			nil,		/* $ */
+			reduce(5),		/* $, reduce: Rules */
+			nil,		/* ws */
 			nil,		/* error */
-			shift(21),		/* { */
-			nil,		/* } */
-			shift(14),		/* * */
-			shift(15),		/* body */
-			shift(16),		/* id */
-			shift(17),		/* . */
-			shift(18),		/* : */
-			shift(19),		/* # */
-			shift(23),		/* > */
+			shift(13),		/* # */
+			shift(14),		/* id */
+			shift(15),		/* : */
+			shift(16),		/* . */
+			shift(17),		/* * */
+			shift(18),		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -153,20 +159,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			nil,		/* ws */
 			nil,		/* error */
-			reduce(6),		/* {, reduce: Selector */
-			nil,		/* } */
-			reduce(6),		/* *, reduce: Selector */
-			reduce(6),		/* body, reduce: Selector */
-			reduce(6),		/* id, reduce: Selector */
-			reduce(6),		/* ., reduce: Selector */
-			reduce(6),		/* :, reduce: Selector */
-			reduce(6),		/* #, reduce: Selector */
-			reduce(6),		/* >, reduce: Selector */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			shift(23),		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			shift(24),		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -176,20 +183,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			shift(25),		/* ws */
 			nil,		/* error */
-			reduce(7),		/* {, reduce: Selector */
-			nil,		/* } */
-			reduce(7),		/* *, reduce: Selector */
-			reduce(7),		/* body, reduce: Selector */
-			reduce(7),		/* id, reduce: Selector */
-			reduce(7),		/* ., reduce: Selector */
-			reduce(7),		/* :, reduce: Selector */
-			reduce(7),		/* #, reduce: Selector */
-			reduce(7),		/* >, reduce: Selector */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -199,20 +207,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(8),		/* ws, reduce: Selector */
 			nil,		/* error */
-			reduce(8),		/* {, reduce: Selector */
-			nil,		/* } */
-			reduce(8),		/* *, reduce: Selector */
-			reduce(8),		/* body, reduce: Selector */
-			reduce(8),		/* id, reduce: Selector */
-			reduce(8),		/* ., reduce: Selector */
-			reduce(8),		/* :, reduce: Selector */
-			reduce(8),		/* #, reduce: Selector */
-			reduce(8),		/* >, reduce: Selector */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -222,20 +231,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(9),		/* ws, reduce: Selector */
 			nil,		/* error */
-			reduce(9),		/* {, reduce: SimpleSelector */
-			nil,		/* } */
-			reduce(9),		/* *, reduce: SimpleSelector */
-			reduce(9),		/* body, reduce: SimpleSelector */
-			reduce(9),		/* id, reduce: SimpleSelector */
-			reduce(9),		/* ., reduce: SimpleSelector */
-			reduce(9),		/* :, reduce: SimpleSelector */
-			reduce(9),		/* #, reduce: SimpleSelector */
-			reduce(9),		/* >, reduce: SimpleSelector */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -245,20 +255,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(10),		/* ws, reduce: SimpleSelector */
 			nil,		/* error */
-			reduce(10),		/* {, reduce: SimpleSelector */
-			nil,		/* } */
-			reduce(10),		/* *, reduce: SimpleSelector */
-			reduce(10),		/* body, reduce: SimpleSelector */
-			reduce(10),		/* id, reduce: SimpleSelector */
-			reduce(10),		/* ., reduce: SimpleSelector */
-			reduce(10),		/* :, reduce: SimpleSelector */
-			reduce(10),		/* #, reduce: SimpleSelector */
-			reduce(10),		/* >, reduce: SimpleSelector */
+			shift(13),		/* # */
+			nil,		/* id */
+			shift(15),		/* : */
+			shift(16),		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -268,20 +279,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(11),		/* ws, reduce: SimpleSelector */
 			nil,		/* error */
-			reduce(11),		/* {, reduce: SimpleSelector */
-			nil,		/* } */
-			reduce(11),		/* *, reduce: SimpleSelector */
-			reduce(11),		/* body, reduce: SimpleSelector */
-			reduce(11),		/* id, reduce: SimpleSelector */
-			reduce(11),		/* ., reduce: SimpleSelector */
-			reduce(11),		/* :, reduce: SimpleSelector */
-			reduce(11),		/* #, reduce: SimpleSelector */
-			reduce(11),		/* >, reduce: SimpleSelector */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -291,20 +303,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(14),		/* ws, reduce: AttrSelectors */
 			nil,		/* error */
-			reduce(12),		/* {, reduce: SimpleSelector */
-			nil,		/* } */
-			reduce(12),		/* *, reduce: SimpleSelector */
-			reduce(12),		/* body, reduce: SimpleSelector */
-			reduce(12),		/* id, reduce: SimpleSelector */
-			reduce(12),		/* ., reduce: SimpleSelector */
-			reduce(12),		/* :, reduce: SimpleSelector */
-			reduce(12),		/* #, reduce: SimpleSelector */
-			reduce(12),		/* >, reduce: SimpleSelector */
+			shift(13),		/* # */
+			nil,		/* id */
+			shift(15),		/* : */
+			shift(16),		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -314,20 +327,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			nil,		/* ws */
 			nil,		/* error */
-			reduce(13),		/* {, reduce: SimpleSelector */
-			nil,		/* } */
-			reduce(13),		/* *, reduce: SimpleSelector */
-			reduce(13),		/* body, reduce: SimpleSelector */
-			reduce(13),		/* id, reduce: SimpleSelector */
-			reduce(13),		/* ., reduce: SimpleSelector */
-			reduce(13),		/* :, reduce: SimpleSelector */
-			reduce(13),		/* #, reduce: SimpleSelector */
-			reduce(13),		/* >, reduce: SimpleSelector */
+			nil,		/* # */
+			shift(28),		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -337,20 +351,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(18),		/* ws, reduce: NamedSelector */
 			nil,		/* error */
-			reduce(14),		/* {, reduce: FixedSelector */
-			nil,		/* } */
-			reduce(14),		/* *, reduce: FixedSelector */
-			reduce(14),		/* body, reduce: FixedSelector */
-			reduce(14),		/* id, reduce: FixedSelector */
-			reduce(14),		/* ., reduce: FixedSelector */
-			reduce(14),		/* :, reduce: FixedSelector */
-			reduce(14),		/* #, reduce: FixedSelector */
-			reduce(14),		/* >, reduce: FixedSelector */
+			reduce(18),		/* #, reduce: NamedSelector */
+			nil,		/* id */
+			reduce(18),		/* :, reduce: NamedSelector */
+			reduce(18),		/* ., reduce: NamedSelector */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -360,20 +375,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			nil,		/* ws */
 			nil,		/* error */
-			reduce(15),		/* {, reduce: FixedSelector */
-			nil,		/* } */
-			reduce(15),		/* *, reduce: FixedSelector */
-			reduce(15),		/* body, reduce: FixedSelector */
-			reduce(15),		/* id, reduce: FixedSelector */
-			reduce(15),		/* ., reduce: FixedSelector */
-			reduce(15),		/* :, reduce: FixedSelector */
-			reduce(15),		/* #, reduce: FixedSelector */
-			reduce(15),		/* >, reduce: FixedSelector */
+			nil,		/* # */
+			shift(29),		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -383,20 +399,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			nil,		/* ws */
 			nil,		/* error */
-			reduce(16),		/* {, reduce: NameSelector */
-			nil,		/* } */
-			reduce(16),		/* *, reduce: NameSelector */
-			reduce(16),		/* body, reduce: NameSelector */
-			reduce(16),		/* id, reduce: NameSelector */
-			reduce(16),		/* ., reduce: NameSelector */
-			reduce(16),		/* :, reduce: NameSelector */
-			reduce(16),		/* #, reduce: NameSelector */
-			reduce(16),		/* >, reduce: NameSelector */
+			nil,		/* # */
+			shift(30),		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -406,20 +423,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(19),		/* ws, reduce: NamedSelector */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			reduce(19),		/* #, reduce: NamedSelector */
+			nil,		/* id */
+			reduce(19),		/* :, reduce: NamedSelector */
+			reduce(19),		/* ., reduce: NamedSelector */
 			nil,		/* * */
 			nil,		/* body */
-			shift(24),		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -429,20 +447,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(20),		/* ws, reduce: NamedSelector */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			reduce(20),		/* #, reduce: NamedSelector */
+			nil,		/* id */
+			reduce(20),		/* :, reduce: NamedSelector */
+			reduce(20),		/* ., reduce: NamedSelector */
 			nil,		/* * */
 			nil,		/* body */
-			shift(25),		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -451,21 +470,22 @@ var actionTab = actionTable{
 				canRecover: false,
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
-			nil,		/* $ */
+			reduce(1),		/* $, reduce: CSS */
+			nil,		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			shift(26),		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -474,21 +494,22 @@ var actionTab = actionTable{
 				canRecover: false,
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
-			reduce(3),		/* $, reduce: Rules */
+			reduce(4),		/* $, reduce: Rules */
+			nil,		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -498,20 +519,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			shift(31),		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			shift(33),		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			shift(28),		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -521,20 +543,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			shift(36),		/* ws */
 			nil,		/* error */
-			reduce(21),		/* {, reduce: ChildAnySelector */
-			nil,		/* } */
-			reduce(21),		/* *, reduce: ChildAnySelector */
-			reduce(21),		/* body, reduce: ChildAnySelector */
-			reduce(21),		/* id, reduce: ChildAnySelector */
-			reduce(21),		/* ., reduce: ChildAnySelector */
-			reduce(21),		/* :, reduce: ChildAnySelector */
-			reduce(21),		/* #, reduce: ChildAnySelector */
-			reduce(21),		/* >, reduce: ChildAnySelector */
+			shift(13),		/* # */
+			shift(14),		/* id */
+			shift(15),		/* : */
+			shift(16),		/* . */
+			shift(17),		/* * */
+			shift(18),		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -544,20 +567,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(36),		/* ws, reduce: Gt */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
-			shift(14),		/* * */
-			shift(15),		/* body */
-			shift(16),		/* id */
-			shift(17),		/* . */
-			shift(18),		/* : */
-			shift(19),		/* # */
-			nil,		/* > */
+			reduce(36),		/* #, reduce: Gt */
+			reduce(36),		/* id, reduce: Gt */
+			reduce(36),		/* :, reduce: Gt */
+			reduce(36),		/* ., reduce: Gt */
+			reduce(36),		/* *, reduce: Gt */
+			reduce(36),		/* body, reduce: Gt */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -567,20 +591,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(42),		/* ws, reduce: CBOpen */
 			nil,		/* error */
-			reduce(17),		/* {, reduce: ClassSelector */
-			nil,		/* } */
-			reduce(17),		/* *, reduce: ClassSelector */
-			reduce(17),		/* body, reduce: ClassSelector */
-			reduce(17),		/* id, reduce: ClassSelector */
-			reduce(17),		/* ., reduce: ClassSelector */
-			reduce(17),		/* :, reduce: ClassSelector */
-			reduce(17),		/* #, reduce: ClassSelector */
-			reduce(17),		/* >, reduce: ClassSelector */
+			nil,		/* # */
+			reduce(42),		/* id, reduce: CBOpen */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -590,20 +615,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			nil,		/* ws */
 			nil,		/* error */
-			reduce(18),		/* {, reduce: PClassSelector */
-			nil,		/* } */
-			reduce(18),		/* *, reduce: PClassSelector */
-			reduce(18),		/* body, reduce: PClassSelector */
-			reduce(18),		/* id, reduce: PClassSelector */
-			reduce(18),		/* ., reduce: PClassSelector */
-			reduce(18),		/* :, reduce: PClassSelector */
-			reduce(18),		/* #, reduce: PClassSelector */
-			reduce(18),		/* >, reduce: PClassSelector */
+			shift(13),		/* # */
+			shift(14),		/* id */
+			shift(15),		/* : */
+			shift(16),		/* . */
+			shift(17),		/* * */
+			shift(18),		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			reduce(7),		/* >, reduce: SelectorWS */
 			nil,		/* ; */
+			nil,		/* | */
+			reduce(7),		/* {, reduce: SelectorWS */
+			nil,		/* } */
 			
 		},
 
@@ -613,20 +639,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(12),		/* ws, reduce: SimpleSelector */
 			nil,		/* error */
-			reduce(19),		/* {, reduce: IdSelector */
-			nil,		/* } */
-			reduce(19),		/* *, reduce: IdSelector */
-			reduce(19),		/* body, reduce: IdSelector */
-			reduce(19),		/* id, reduce: IdSelector */
-			reduce(19),		/* ., reduce: IdSelector */
-			reduce(19),		/* :, reduce: IdSelector */
-			reduce(19),		/* #, reduce: IdSelector */
-			reduce(19),		/* >, reduce: IdSelector */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -636,20 +663,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(13),		/* ws, reduce: AttrSelectors */
 			nil,		/* error */
-			nil,		/* { */
-			shift(30),		/* } */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -659,20 +687,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(15),		/* ws, reduce: AttrSelector */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			reduce(15),		/* #, reduce: AttrSelector */
+			nil,		/* id */
+			reduce(15),		/* :, reduce: AttrSelector */
+			reduce(15),		/* ., reduce: AttrSelector */
 			nil,		/* * */
 			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			shift(31),		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -682,20 +711,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(16),		/* ws, reduce: AttrSelector */
 			nil,		/* error */
-			reduce(20),		/* {, reduce: ChildSelector */
-			nil,		/* } */
-			reduce(20),		/* *, reduce: ChildSelector */
-			reduce(20),		/* body, reduce: ChildSelector */
-			reduce(20),		/* id, reduce: ChildSelector */
-			reduce(20),		/* ., reduce: ChildSelector */
-			reduce(20),		/* :, reduce: ChildSelector */
-			reduce(20),		/* #, reduce: ChildSelector */
-			reduce(20),		/* >, reduce: ChildSelector */
+			reduce(16),		/* #, reduce: AttrSelector */
+			nil,		/* id */
+			reduce(16),		/* :, reduce: AttrSelector */
+			reduce(16),		/* ., reduce: AttrSelector */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -704,21 +734,22 @@ var actionTab = actionTable{
 				canRecover: false,
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
-			reduce(5),		/* $, reduce: Rule */
+			nil,		/* $ */
+			reduce(17),		/* ws, reduce: AttrSelector */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
-			reduce(5),		/* *, reduce: Rule */
-			reduce(5),		/* body, reduce: Rule */
-			reduce(5),		/* id, reduce: Rule */
-			reduce(5),		/* ., reduce: Rule */
-			reduce(5),		/* :, reduce: Rule */
-			reduce(5),		/* #, reduce: Rule */
-			nil,		/* > */
+			reduce(17),		/* #, reduce: AttrSelector */
+			nil,		/* id */
+			reduce(17),		/* :, reduce: AttrSelector */
+			reduce(17),		/* ., reduce: AttrSelector */
+			nil,		/* * */
+			nil,		/* body */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -728,20 +759,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(41),		/* ws, reduce: CBOpen */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			reduce(41),		/* id, reduce: CBOpen */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			shift(32),		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
+			nil,		/* int */
+			nil,		/* float */
 			nil,		/* > */
-			shift(34),		/* int */
-			shift(35),		/* float */
-			nil,		/* | */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -751,20 +783,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			nil,		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			reduce(22),		/* |, reduce: Value */
-			reduce(22),		/* ;, reduce: Value */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			shift(40),		/* } */
 			
 		},
 
@@ -774,20 +807,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			shift(41),		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			nil,		/* id */
+			shift(42),		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			shift(37),		/* | */
-			reduce(26),		/* ;, reduce: Values */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -797,20 +831,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			nil,		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			shift(33),		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			reduce(23),		/* |, reduce: Value */
-			reduce(23),		/* ;, reduce: Value */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			reduce(30),		/* }, reduce: Properties */
 			
 		},
 
@@ -820,20 +855,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			shift(44),		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			shift(45),		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
+			shift(47),		/* int */
+			shift(48),		/* float */
 			nil,		/* > */
-			nil,		/* int */
-			nil,		/* float */
-			reduce(24),		/* |, reduce: Value */
-			reduce(24),		/* ;, reduce: Value */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -843,20 +879,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(35),		/* ws, reduce: Gt */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
-			nil,		/* * */
-			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
+			reduce(35),		/* #, reduce: Gt */
+			reduce(35),		/* id, reduce: Gt */
+			reduce(35),		/* :, reduce: Gt */
+			reduce(35),		/* ., reduce: Gt */
+			reduce(35),		/* *, reduce: Gt */
+			reduce(35),		/* body, reduce: Gt */
 			nil,		/* int */
 			nil,		/* float */
+			nil,		/* > */
+			nil,		/* ; */
 			nil,		/* | */
-			shift(38),		/* ; */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -866,20 +903,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(21),		/* ws, reduce: ChildSelector */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			shift(32),		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
+			nil,		/* int */
+			nil,		/* float */
 			nil,		/* > */
-			shift(34),		/* int */
-			shift(35),		/* float */
-			nil,		/* | */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -889,20 +927,21 @@ var actionTab = actionTable{
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
 			nil,		/* $ */
+			reduce(22),		/* ws, reduce: ChildSelector */
 			nil,		/* error */
-			nil,		/* { */
-			reduce(28),		/* }, reduce: Properties */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
 			nil,		/* * */
 			nil,		/* body */
-			shift(28),		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -911,21 +950,22 @@ var actionTab = actionTable{
 				canRecover: false,
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
-			nil,		/* $ */
+			reduce(6),		/* $, reduce: Rule */
+			shift(50),		/* ws */
 			nil,		/* error */
-			nil,		/* { */
-			nil,		/* } */
-			nil,		/* * */
-			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
+			reduce(6),		/* #, reduce: Rule */
+			reduce(6),		/* id, reduce: Rule */
+			reduce(6),		/* :, reduce: Rule */
+			reduce(6),		/* ., reduce: Rule */
+			reduce(6),		/* *, reduce: Rule */
+			reduce(6),		/* body, reduce: Rule */
 			nil,		/* int */
 			nil,		/* float */
+			nil,		/* > */
+			nil,		/* ; */
 			nil,		/* | */
-			reduce(25),		/* ;, reduce: Values */
+			nil,		/* { */
+			nil,		/* } */
 			
 		},
 
@@ -934,21 +974,478 @@ var actionTab = actionTable{
 				canRecover: false,
 		actions: [numSymbols]action{
 			nil,		/* INVALID */
-			nil,		/* $ */
+			reduce(44),		/* $, reduce: CBClose */
+			reduce(44),		/* ws, reduce: CBClose */
 			nil,		/* error */
-			nil,		/* { */
-			reduce(27),		/* }, reduce: Properties */
-			nil,		/* * */
-			nil,		/* body */
-			nil,		/* id */
-			nil,		/* . */
-			nil,		/* : */
-			nil,		/* # */
-			nil,		/* > */
+			reduce(44),		/* #, reduce: CBClose */
+			reduce(44),		/* id, reduce: CBClose */
+			reduce(44),		/* :, reduce: CBClose */
+			reduce(44),		/* ., reduce: CBClose */
+			reduce(44),		/* *, reduce: CBClose */
+			reduce(44),		/* body, reduce: CBClose */
 			nil,		/* int */
 			nil,		/* float */
-			nil,		/* | */
+			nil,		/* > */
 			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S41
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			nil,		/* ws */
+			nil,		/* error */
+			nil,		/* # */
+			nil,		/* id */
+			shift(51),		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S42
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(33),		/* ws, reduce: Propertyname */
+			nil,		/* error */
+			nil,		/* # */
+			reduce(33),		/* id, reduce: Propertyname */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			reduce(33),		/* int, reduce: Propertyname */
+			reduce(33),		/* float, reduce: Propertyname */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S43
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			nil,		/* ws */
+			nil,		/* error */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			reduce(29),		/* }, reduce: Properties */
+			
+		},
+
+	},
+	actionRow{ // S44
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(31),		/* ws, reduce: Propertyname */
+			nil,		/* error */
+			nil,		/* # */
+			reduce(31),		/* id, reduce: Propertyname */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			reduce(31),		/* int, reduce: Propertyname */
+			reduce(31),		/* float, reduce: Propertyname */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S45
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(24),		/* ws, reduce: Value */
+			nil,		/* error */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			reduce(24),		/* ;, reduce: Value */
+			reduce(24),		/* |, reduce: Value */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S46
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			shift(52),		/* ws */
+			nil,		/* error */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			reduce(28),		/* ;, reduce: Values */
+			shift(54),		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S47
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(25),		/* ws, reduce: Value */
+			nil,		/* error */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			reduce(25),		/* ;, reduce: Value */
+			reduce(25),		/* |, reduce: Value */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S48
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(26),		/* ws, reduce: Value */
+			nil,		/* error */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			reduce(26),		/* ;, reduce: Value */
+			reduce(26),		/* |, reduce: Value */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S49
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			nil,		/* ws */
+			nil,		/* error */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			shift(56),		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S50
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			reduce(43),		/* $, reduce: CBClose */
+			reduce(43),		/* ws, reduce: CBClose */
+			nil,		/* error */
+			reduce(43),		/* #, reduce: CBClose */
+			reduce(43),		/* id, reduce: CBClose */
+			reduce(43),		/* :, reduce: CBClose */
+			reduce(43),		/* ., reduce: CBClose */
+			reduce(43),		/* *, reduce: CBClose */
+			reduce(43),		/* body, reduce: CBClose */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S51
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(32),		/* ws, reduce: Propertyname */
+			nil,		/* error */
+			nil,		/* # */
+			reduce(32),		/* id, reduce: Propertyname */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			reduce(32),		/* int, reduce: Propertyname */
+			reduce(32),		/* float, reduce: Propertyname */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S52
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(23),		/* ws, reduce: Value */
+			nil,		/* error */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			reduce(23),		/* ;, reduce: Value */
+			reduce(23),		/* |, reduce: Value */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S53
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			shift(57),		/* ws */
+			nil,		/* error */
+			nil,		/* # */
+			shift(45),		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			shift(47),		/* int */
+			shift(48),		/* float */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S54
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(40),		/* ws, reduce: Pipe */
+			nil,		/* error */
+			nil,		/* # */
+			reduce(40),		/* id, reduce: Pipe */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			reduce(40),		/* int, reduce: Pipe */
+			reduce(40),		/* float, reduce: Pipe */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S55
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			shift(59),		/* ws */
+			nil,		/* error */
+			nil,		/* # */
+			reduce(34),		/* id, reduce: Property */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			reduce(34),		/* }, reduce: Property */
+			
+		},
+
+	},
+	actionRow{ // S56
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(38),		/* ws, reduce: Semicolon */
+			nil,		/* error */
+			nil,		/* # */
+			reduce(38),		/* id, reduce: Semicolon */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			reduce(38),		/* }, reduce: Semicolon */
+			
+		},
+
+	},
+	actionRow{ // S57
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(39),		/* ws, reduce: Pipe */
+			nil,		/* error */
+			nil,		/* # */
+			reduce(39),		/* id, reduce: Pipe */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			reduce(39),		/* int, reduce: Pipe */
+			reduce(39),		/* float, reduce: Pipe */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S58
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			nil,		/* ws */
+			nil,		/* error */
+			nil,		/* # */
+			nil,		/* id */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			reduce(27),		/* ;, reduce: Values */
+			nil,		/* | */
+			nil,		/* { */
+			nil,		/* } */
+			
+		},
+
+	},
+	actionRow{ // S59
+				canRecover: false,
+		actions: [numSymbols]action{
+			nil,		/* INVALID */
+			nil,		/* $ */
+			reduce(37),		/* ws, reduce: Semicolon */
+			nil,		/* error */
+			nil,		/* # */
+			reduce(37),		/* id, reduce: Semicolon */
+			nil,		/* : */
+			nil,		/* . */
+			nil,		/* * */
+			nil,		/* body */
+			nil,		/* int */
+			nil,		/* float */
+			nil,		/* > */
+			nil,		/* ; */
+			nil,		/* | */
+			nil,		/* { */
+			reduce(37),		/* }, reduce: Semicolon */
 			
 		},
 

@@ -31,17 +31,17 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `CSS : Rules	<< X[0], nil >>`,
+		String: `CSS : ws Rules	<< X[1], nil >>`,
 		Id: "CSS",
 		NTType: 1,
 		Index: 1,
-		NumSymbols: 1,
+		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
+			return X[1], nil
 		},
 	},
 	ProdTabEntry{
-		String: `CSS : error	<<  >>`,
+		String: `CSS : Rules	<< X[0], nil >>`,
 		Id: "CSS",
 		NTType: 1,
 		Index: 2,
@@ -51,59 +51,59 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
+		String: `CSS : error	<<  >>`,
+		Id: "CSS",
+		NTType: 1,
+		Index: 3,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
 		String: `Rules : Rule Rules	<< append(X[1].(internal.Rules), X[0].(internal.Rule)), nil >>`,
 		Id: "Rules",
 		NTType: 2,
-		Index: 3,
+		Index: 4,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return append(X[1].(internal.Rules), X[0].(internal.Rule)), nil
 		},
 	},
 	ProdTabEntry{
-		String: `Rules : Rule	<< internal.Rules{ X[0].(internal.Rule) }, nil >>`,
+		String: `Rules : Rule	<< internal.Rules{X[0].(internal.Rule) }, nil >>`,
 		Id: "Rules",
 		NTType: 2,
-		Index: 4,
+		Index: 5,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return internal.Rules{ X[0].(internal.Rule) }, nil
+			return internal.Rules{X[0].(internal.Rule) }, nil
 		},
 	},
 	ProdTabEntry{
-		String: `Rule : Selector "{" Properties "}"	<< internal.Rule{ X[0].(css.Selector), X[2].(internal.PropertyValues)}, nil >>`,
+		String: `Rule : SelectorWS CBOpen Properties CBClose	<< internal.Rule{X[0].(css.Selector), X[2].(internal.PropertyValues)}, nil >>`,
 		Id: "Rule",
 		NTType: 3,
-		Index: 5,
+		Index: 6,
 		NumSymbols: 4,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return internal.Rule{ X[0].(css.Selector), X[2].(internal.PropertyValues)}, nil
+			return internal.Rule{X[0].(css.Selector), X[2].(internal.PropertyValues)}, nil
+		},
+	},
+	ProdTabEntry{
+		String: `SelectorWS : Selector ws	<< X[0], nil >>`,
+		Id: "SelectorWS",
+		NTType: 4,
+		Index: 7,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
 		},
 	},
 	ProdTabEntry{
 		String: `Selector : SimpleSelector	<< X[0], nil >>`,
 		Id: "Selector",
-		NTType: 4,
-		Index: 6,
-		NumSymbols: 1,
-		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
-		},
-	},
-	ProdTabEntry{
-		String: `Selector : ChildSelector	<<  >>`,
-		Id: "Selector",
-		NTType: 4,
-		Index: 7,
-		NumSymbols: 1,
-		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
-		},
-	},
-	ProdTabEntry{
-		String: `Selector : ChildAnySelector	<<  >>`,
-		Id: "Selector",
-		NTType: 4,
+		NTType: 5,
 		Index: 8,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
@@ -111,8 +111,8 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `SimpleSelector : NameSelector	<< X[0], nil >>`,
-		Id: "SimpleSelector",
+		String: `Selector : ChildSelector	<< X[0], nil >>`,
+		Id: "Selector",
 		NTType: 5,
 		Index: 9,
 		NumSymbols: 1,
@@ -121,9 +121,9 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `SimpleSelector : ClassSelector	<< X[0], nil >>`,
+		String: `SimpleSelector : NamedSelector	<< X[0], nil >>`,
 		Id: "SimpleSelector",
-		NTType: 5,
+		NTType: 6,
 		Index: 10,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
@@ -131,9 +131,9 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `SimpleSelector : PClassSelector	<< X[0], nil >>`,
+		String: `SimpleSelector : AttrSelectors	<< X[0], nil >>`,
 		Id: "SimpleSelector",
-		NTType: 5,
+		NTType: 6,
 		Index: 11,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
@@ -141,58 +141,58 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `SimpleSelector : IdSelector	<< X[0], nil >>`,
+		String: `SimpleSelector : NamedSelector AttrSelectors	<< X[0], nil >>`,
 		Id: "SimpleSelector",
-		NTType: 5,
-		Index: 12,
-		NumSymbols: 1,
-		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
-		},
-	},
-	ProdTabEntry{
-		String: `SimpleSelector : FixedSelector	<< X[0], nil >>`,
-		Id: "SimpleSelector",
-		NTType: 5,
-		Index: 13,
-		NumSymbols: 1,
-		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
-		},
-	},
-	ProdTabEntry{
-		String: `FixedSelector : "*"	<< css.AnySelector, nil >>`,
-		Id: "FixedSelector",
 		NTType: 6,
+		Index: 12,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `AttrSelectors : AttrSelector AttrSelectors	<< append(X[1].(css.AndSelector), X[0].(css.Selector)), nil >>`,
+		Id: "AttrSelectors",
+		NTType: 7,
+		Index: 13,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return append(X[1].(css.AndSelector), X[0].(css.Selector)), nil
+		},
+	},
+	ProdTabEntry{
+		String: `AttrSelectors : AttrSelector	<< css.AndSelector{X[0].(css.Selector)}, nil >>`,
+		Id: "AttrSelectors",
+		NTType: 7,
 		Index: 14,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return css.AnySelector, nil
+			return css.AndSelector{X[0].(css.Selector)}, nil
 		},
 	},
 	ProdTabEntry{
-		String: `FixedSelector : "body"	<< css.BodySelector, nil >>`,
-		Id: "FixedSelector",
-		NTType: 6,
+		String: `AttrSelector : "#" id	<< css.IdSelector(str(X[1])), nil >>`,
+		Id: "AttrSelector",
+		NTType: 8,
 		Index: 15,
-		NumSymbols: 1,
+		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return css.BodySelector, nil
+			return css.IdSelector(str(X[1])), nil
 		},
 	},
 	ProdTabEntry{
-		String: `NameSelector : id	<< css.NameSelector(str(X[0])), nil >>`,
-		Id: "NameSelector",
-		NTType: 7,
+		String: `AttrSelector : ":" id	<< css.PseudoClassSelector(str(X[1])), nil >>`,
+		Id: "AttrSelector",
+		NTType: 8,
 		Index: 16,
-		NumSymbols: 1,
+		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return css.NameSelector(str(X[0])), nil
+			return css.PseudoClassSelector(str(X[1])), nil
 		},
 	},
 	ProdTabEntry{
-		String: `ClassSelector : "." id	<< css.ClassSelector(str(X[1])), nil >>`,
-		Id: "ClassSelector",
+		String: `AttrSelector : "." id	<< css.ClassSelector(str(X[1])), nil >>`,
+		Id: "AttrSelector",
 		NTType: 8,
 		Index: 17,
 		NumSymbols: 2,
@@ -201,40 +201,60 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `PClassSelector : ":" id	<< css.PseudoClassSelector(str(X[1])), nil >>`,
-		Id: "PClassSelector",
+		String: `NamedSelector : id	<< css.NameSelector(str(X[0])), nil >>`,
+		Id: "NamedSelector",
 		NTType: 9,
 		Index: 18,
-		NumSymbols: 2,
+		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return css.PseudoClassSelector(str(X[1])), nil
+			return css.NameSelector(str(X[0])), nil
 		},
 	},
 	ProdTabEntry{
-		String: `IdSelector : "#" id	<< css.IdSelector(str(X[0])), nil >>`,
-		Id: "IdSelector",
-		NTType: 10,
+		String: `NamedSelector : "*"	<< css.AnySelector, nil >>`,
+		Id: "NamedSelector",
+		NTType: 9,
 		Index: 19,
-		NumSymbols: 2,
+		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return css.IdSelector(str(X[0])), nil
+			return css.AnySelector, nil
 		},
 	},
 	ProdTabEntry{
-		String: `ChildSelector : Selector ">" SimpleSelector	<< css.ParentSelector{X[0].(css.Selector), X[2].(css.Selector)}, nil >>`,
-		Id: "ChildSelector",
-		NTType: 11,
+		String: `NamedSelector : "body"	<< css.BodySelector, nil >>`,
+		Id: "NamedSelector",
+		NTType: 9,
 		Index: 20,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return css.BodySelector, nil
+		},
+	},
+	ProdTabEntry{
+		String: `ChildSelector : SelectorWS Gt SimpleSelector	<< css.ParentSelector{X[0].(css.Selector), X[2].(css.Selector)}, nil >>`,
+		Id: "ChildSelector",
+		NTType: 10,
+		Index: 21,
 		NumSymbols: 3,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return css.ParentSelector{X[0].(css.Selector), X[2].(css.Selector)}, nil
 		},
 	},
 	ProdTabEntry{
-		String: `ChildAnySelector : Selector SimpleSelector	<<  >>`,
-		Id: "ChildAnySelector",
-		NTType: 12,
-		Index: 21,
+		String: `ChildSelector : Selector ws SimpleSelector	<< css.AnyParentSelector{X[0].(css.Selector), X[2].(css.Selector)}, nil >>`,
+		Id: "ChildSelector",
+		NTType: 10,
+		Index: 22,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return css.AnyParentSelector{X[0].(css.Selector), X[2].(css.Selector)}, nil
+		},
+	},
+	ProdTabEntry{
+		String: `Value : Value ws	<< X[0], nil >>`,
+		Id: "Value",
+		NTType: 11,
+		Index: 23,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -243,8 +263,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `Value : id	<< str(X[0]), nil >>`,
 		Id: "Value",
-		NTType: 13,
-		Index: 22,
+		NTType: 11,
+		Index: 24,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return str(X[0]), nil
@@ -253,8 +273,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `Value : int	<< str(X[0]), nil >>`,
 		Id: "Value",
-		NTType: 13,
-		Index: 23,
+		NTType: 11,
+		Index: 25,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return str(X[0]), nil
@@ -263,18 +283,18 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `Value : float	<< str(X[0]), nil >>`,
 		Id: "Value",
-		NTType: 13,
-		Index: 24,
+		NTType: 11,
+		Index: 26,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return str(X[0]), nil
 		},
 	},
 	ProdTabEntry{
-		String: `Values : Value "|" Values	<< append(X[2].([]string), X[0].(string)), nil >>`,
+		String: `Values : Value Pipe Values	<< append(X[2].([]string), X[0].(string)), nil >>`,
 		Id: "Values",
-		NTType: 14,
-		Index: 25,
+		NTType: 12,
+		Index: 27,
 		NumSymbols: 3,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return append(X[2].([]string), X[0].(string)), nil
@@ -283,31 +303,171 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `Values : Value	<< []string{X[0].(string)}, nil >>`,
 		Id: "Values",
-		NTType: 14,
-		Index: 26,
+		NTType: 12,
+		Index: 28,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return []string{X[0].(string)}, nil
 		},
 	},
 	ProdTabEntry{
-		String: `Properties : id ":" Values ";" Properties	<< append(X[4].(internal.PropertyValues), internal.PropertyValue { str(X[0]), X[2] }), nil >>`,
+		String: `Properties : Property Properties	<< append(X[1].(internal.PropertyValues), X[0].(internal.PropertyValue)), nil >>`,
 		Id: "Properties",
-		NTType: 15,
-		Index: 27,
-		NumSymbols: 5,
+		NTType: 13,
+		Index: 29,
+		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return append(X[4].(internal.PropertyValues), internal.PropertyValue { str(X[0]), X[2] }), nil
+			return append(X[1].(internal.PropertyValues), X[0].(internal.PropertyValue)), nil
 		},
 	},
 	ProdTabEntry{
-		String: `Properties : id ":" Values ";"	<< internal.PropertyValues{ internal.PropertyValue { str(X[0]), X[2] } }, nil >>`,
+		String: `Properties : Property	<< internal.PropertyValues{X[0].(internal.PropertyValue)}, nil >>`,
 		Id: "Properties",
-		NTType: 15,
-		Index: 28,
-		NumSymbols: 4,
+		NTType: 13,
+		Index: 30,
+		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return internal.PropertyValues{ internal.PropertyValue { str(X[0]), X[2] } }, nil
+			return internal.PropertyValues{X[0].(internal.PropertyValue)}, nil
+		},
+	},
+	ProdTabEntry{
+		String: `Propertyname : Propertyname ws	<< X[0], nil >>`,
+		Id: "Propertyname",
+		NTType: 14,
+		Index: 31,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `Propertyname : id ws ":"	<< str(X[0]), nil >>`,
+		Id: "Propertyname",
+		NTType: 14,
+		Index: 32,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return str(X[0]), nil
+		},
+	},
+	ProdTabEntry{
+		String: `Propertyname : id ":"	<< str(X[0]), nil >>`,
+		Id: "Propertyname",
+		NTType: 14,
+		Index: 33,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return str(X[0]), nil
+		},
+	},
+	ProdTabEntry{
+		String: `Property : Propertyname Values Semicolon	<< internal.PropertyValue { X[0].(string), X[1] }, nil >>`,
+		Id: "Property",
+		NTType: 15,
+		Index: 34,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return internal.PropertyValue { X[0].(string), X[1] }, nil
+		},
+	},
+	ProdTabEntry{
+		String: `Gt : Gt ws	<<  >>`,
+		Id: "Gt",
+		NTType: 16,
+		Index: 35,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `Gt : ">"	<<  >>`,
+		Id: "Gt",
+		NTType: 16,
+		Index: 36,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `Semicolon : Semicolon ws	<<  >>`,
+		Id: "Semicolon",
+		NTType: 17,
+		Index: 37,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `Semicolon : ";"	<<  >>`,
+		Id: "Semicolon",
+		NTType: 17,
+		Index: 38,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `Pipe : Pipe ws	<<  >>`,
+		Id: "Pipe",
+		NTType: 18,
+		Index: 39,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `Pipe : "|"	<<  >>`,
+		Id: "Pipe",
+		NTType: 18,
+		Index: 40,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `CBOpen : CBOpen ws	<<  >>`,
+		Id: "CBOpen",
+		NTType: 19,
+		Index: 41,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `CBOpen : "{"	<<  >>`,
+		Id: "CBOpen",
+		NTType: 19,
+		Index: 42,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `CBClose : CBClose ws	<<  >>`,
+		Id: "CBClose",
+		NTType: 20,
+		Index: 43,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `CBClose : "}"	<<  >>`,
+		Id: "CBClose",
+		NTType: 20,
+		Index: 44,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
 		},
 	},
 	

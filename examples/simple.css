@@ -8,7 +8,7 @@ border {
     gravity: left | right ;
 }
 
-border > border {
+border >border {
     background: yellow;
     color: magenta;
 }
@@ -16,3 +16,8 @@ border > border {
 text {
     color: white;
 }
+
+border :focused {
+    background: green;
+}
+

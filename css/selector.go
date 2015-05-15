@@ -113,6 +113,26 @@ func (ps ParentSelector) weight() selectorWeight {
 	return ps.Child.weight().Add(ps.Parent.weight())
 }
 
+type AnyParentSelector struct {
+	Parent, Child Selector
+}
+
+func (ps AnyParentSelector) Matches(s Styleable) bool {
+	if ps.Child.Matches(s) {
+		for s != nil {
+			s = s.Parent()
+			if ps.Parent.Matches(s) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func (ps AnyParentSelector) weight() selectorWeight {
+	return ps.Child.weight().Add(ps.Parent.weight())
+}
+
 type AndSelector []Selector
 
 func (as AndSelector) Matches(s Styleable) bool {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"github.com/boombuler/termui/css"
 	"github.com/boombuler/termui/css/internal"
@@ -94,6 +95,23 @@ func selector_to_str(sel css.Selector) string {
 		return fmt.Sprintf("css.ParentSelector{%v, %v}", selector_to_str(ps.Parent), selector_to_str(ps.Child))
 	} else if name, ok := sel.(css.PseudoClassSelector); ok {
 		return fmt.Sprintf("css.PseudoClassSelector(\"%v\")", string(name))
+	} else if ps, ok := sel.(css.AnyParentSelector); ok {
+		return fmt.Sprintf("css.AnyParentSelector{%v, %v}", selector_to_str(ps.Parent), selector_to_str(ps.Child))
+	} else if as, ok := sel.(css.AndSelector); ok {
+		if len(as) == 1 {
+			return selector_to_str(as[0])
+		} else {
+			b := new(bytes.Buffer)
+			b.WriteString("css.AndSelector{")
+			b.WriteString(nl)
+			for _, s := range as {
+				b.WriteString(selector_to_str(s))
+				b.WriteRune(',')
+				b.WriteString(nl)
+			}
+			b.WriteString("}")
+			return b.String()
+		}
 	}
 	panic("Invalid Selector Type!")
 }
