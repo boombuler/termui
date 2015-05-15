@@ -57,9 +57,7 @@ func Start(body Element) {
 					body.Arrange(body.Measure(termbox.Size()))
 				}
 				if !input.DispatchEvent(ev) {
-					go func(e termbox.Event) {
-						events <- e
-					}(ev)
+					events <- ev
 				}
 			case <-updateChan:
 				body.Arrange(body.Measure(termbox.Size()))
@@ -70,7 +68,9 @@ func Start(body Element) {
 }
 
 func Update() {
-	updateChan <- struct{}{}
+	go func() {
+		updateChan <- struct{}{}
+	}()
 }
 
 func Wait() {
@@ -78,5 +78,7 @@ func Wait() {
 }
 
 func Stop() {
-	quitChan <- struct{}{}
+	go func() {
+		quitChan <- struct{}{}
+	}()
 }
