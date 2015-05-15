@@ -19,8 +19,8 @@ func Start(body Element) {
 	eventChan := make(chan termbox.Event)
 	updateChan = make(chan struct{})
 	go func() {
-		for {
-			eventChan <- termbox.PollEvent()
+		for e := range termbox.PollEvent() {
+			eventChan <- e
 		}
 		close(eventChan)
 	}()
