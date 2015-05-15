@@ -4,6 +4,8 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
+const pclass_Focused = "focused"
+
 type intputManager struct {
 	root    Element
 	current FocusElement
@@ -27,6 +29,7 @@ func (im *intputManager) Next() {
 		itmStack = append(itmStack[:lastIdx], cur.Children()...)
 	}
 	if im.current != nil {
+		im.current.RemovePseudoClass(pclass_Focused)
 		im.current.SetFocused(false)
 	}
 	if len(items) > 0 {
@@ -40,6 +43,7 @@ func (im *intputManager) Next() {
 		curIdx = (curIdx + 1) % len(items)
 		im.current = items[curIdx]
 		if im.current != nil {
+			im.current.AddPseudoClass(pclass_Focused)
 			im.current.SetFocused(true)
 		}
 	} else {

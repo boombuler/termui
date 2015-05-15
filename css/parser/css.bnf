@@ -29,6 +29,7 @@ Selector         : SimpleSelector                 <<$0, nil>>
 
 SimpleSelector   : NameSelector                   <<$0, nil>>
                  | ClassSelector                  <<$0, nil>>
+                 | PClassSelector                 <<$0, nil>>
                  | IdSelector                     <<$0, nil>>
                  | FixedSelector                  <<$0, nil>>
                  ;
@@ -40,6 +41,8 @@ FixedSelector    : "*"                            <<css.AnySelector, nil>>
 NameSelector     : id                             <<css.NameSelector(str($0)), nil>>
                  ;
 ClassSelector    : "."id                          <<css.ClassSelector(str($1)), nil>>
+                 ;
+PClassSelector   : ":"id                          <<css.PseudoClassSelector(str($1)), nil>>
                  ;
 IdSelector       : "#"id                          <<css.IdSelector(str($0)), nil>>
                  ;

@@ -1,6 +1,6 @@
 package main
 
-//go:generate termcssgen -i=termtest.css -o=style_gen.go -p=main -m=defaultStyle
+//go:generate termcssgen -i=simple.css -o=style_gen.go -p=main -m=defaultStyle
 
 import (
 	"github.com/boombuler/termui"
@@ -12,7 +12,14 @@ func main() {
 	css.SetDesignerStyles(defaultStyle())
 
 	tx := termui.NewText("Hallo Welt")
-	innerBox := termui.NewBorder(tx)
+
+	vInner := termui.NewVPanel()
+	vInner.AddChild(tx)
+	vInner.AddChild(termui.NewTextBox())
+	vInner.AddChild(termui.NewTextBox())
+
+	innerBox := termui.NewBorder(vInner)
+
 	box := termui.NewTextBorder("Foobar", innerBox)
 
 	termui.Start(box)
@@ -21,9 +28,6 @@ func main() {
 			if ev.Type == termbox.EventKey {
 				if ev.Key == termbox.KeyEsc {
 					termui.Stop()
-				} else {
-					tx.SetText(string(append([]rune(tx.Text()), ev.Ch)))
-					termui.Update()
 				}
 			}
 		}

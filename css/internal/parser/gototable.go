@@ -3,7 +3,7 @@
 */
 package parser
 
-const numNTSymbols = 15
+const numNTSymbols = 16
 type(
 	gotoTable [numStates]gotoRow
 	gotoRow	[numNTSymbols] int
@@ -18,10 +18,11 @@ var gotoTab = gotoTable{
 		4, // Rule
 		5, // Selector
 		6, // SimpleSelector
-		12, // FixedSelector
+		13, // FixedSelector
 		9, // NameSelector
 		10, // ClassSelector
-		11, // IdSelector
+		11, // PClassSelector
+		12, // IdSelector
 		7, // ChildSelector
 		8, // ChildAnySelector
 		-1, // Value
@@ -41,6 +42,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -61,6 +63,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -81,6 +84,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -94,14 +98,15 @@ var gotoTab = gotoTable{
 		
 		-1, // S'
 		-1, // CSS
-		18, // Rules
+		20, // Rules
 		4, // Rule
 		5, // Selector
 		6, // SimpleSelector
-		12, // FixedSelector
+		13, // FixedSelector
 		9, // NameSelector
 		10, // ClassSelector
-		11, // IdSelector
+		11, // PClassSelector
+		12, // IdSelector
 		7, // ChildSelector
 		8, // ChildAnySelector
 		-1, // Value
@@ -117,11 +122,12 @@ var gotoTab = gotoTable{
 		-1, // Rules
 		-1, // Rule
 		-1, // Selector
-		20, // SimpleSelector
-		12, // FixedSelector
+		22, // SimpleSelector
+		13, // FixedSelector
 		9, // NameSelector
 		10, // ClassSelector
-		11, // IdSelector
+		11, // PClassSelector
+		12, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
 		-1, // Value
@@ -141,6 +147,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -161,6 +168,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -181,6 +189,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -201,6 +210,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -221,6 +231,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -241,6 +252,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -261,6 +273,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -281,6 +294,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -301,6 +315,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -321,6 +336,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -341,6 +357,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -361,6 +378,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -381,6 +399,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -401,12 +420,13 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
 		-1, // Value
 		-1, // Values
-		24, // Properties
+		-1, // Properties
 		
 
 	},
@@ -421,6 +441,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -437,16 +458,17 @@ var gotoTab = gotoTable{
 		-1, // Rules
 		-1, // Rule
 		-1, // Selector
-		26, // SimpleSelector
-		12, // FixedSelector
-		9, // NameSelector
-		10, // ClassSelector
-		11, // IdSelector
+		-1, // SimpleSelector
+		-1, // FixedSelector
+		-1, // NameSelector
+		-1, // ClassSelector
+		-1, // PClassSelector
+		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
 		-1, // Value
 		-1, // Values
-		-1, // Properties
+		27, // Properties
 		
 
 	},
@@ -461,6 +483,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -477,11 +500,12 @@ var gotoTab = gotoTable{
 		-1, // Rules
 		-1, // Rule
 		-1, // Selector
-		-1, // SimpleSelector
-		-1, // FixedSelector
-		-1, // NameSelector
-		-1, // ClassSelector
-		-1, // IdSelector
+		29, // SimpleSelector
+		13, // FixedSelector
+		9, // NameSelector
+		10, // ClassSelector
+		11, // PClassSelector
+		12, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
 		-1, // Value
@@ -501,6 +525,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -521,6 +546,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -541,6 +567,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -561,6 +588,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -581,11 +609,12 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
-		30, // Value
-		33, // Values
+		-1, // Value
+		-1, // Values
 		-1, // Properties
 		
 
@@ -601,6 +630,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -621,6 +651,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -641,11 +672,12 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
-		-1, // Value
-		-1, // Values
+		33, // Value
+		36, // Values
 		-1, // Properties
 		
 
@@ -661,6 +693,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -681,6 +714,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -701,11 +735,12 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
-		30, // Value
-		36, // Values
+		-1, // Value
+		-1, // Values
 		-1, // Properties
 		
 
@@ -721,12 +756,13 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
 		-1, // Value
 		-1, // Values
-		37, // Properties
+		-1, // Properties
 		
 
 	},
@@ -741,6 +777,7 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector
@@ -761,6 +798,70 @@ var gotoTab = gotoTable{
 		-1, // FixedSelector
 		-1, // NameSelector
 		-1, // ClassSelector
+		-1, // PClassSelector
+		-1, // IdSelector
+		-1, // ChildSelector
+		-1, // ChildAnySelector
+		33, // Value
+		39, // Values
+		-1, // Properties
+		
+
+	},
+	gotoRow{ // S38
+		
+		-1, // S'
+		-1, // CSS
+		-1, // Rules
+		-1, // Rule
+		-1, // Selector
+		-1, // SimpleSelector
+		-1, // FixedSelector
+		-1, // NameSelector
+		-1, // ClassSelector
+		-1, // PClassSelector
+		-1, // IdSelector
+		-1, // ChildSelector
+		-1, // ChildAnySelector
+		-1, // Value
+		-1, // Values
+		40, // Properties
+		
+
+	},
+	gotoRow{ // S39
+		
+		-1, // S'
+		-1, // CSS
+		-1, // Rules
+		-1, // Rule
+		-1, // Selector
+		-1, // SimpleSelector
+		-1, // FixedSelector
+		-1, // NameSelector
+		-1, // ClassSelector
+		-1, // PClassSelector
+		-1, // IdSelector
+		-1, // ChildSelector
+		-1, // ChildAnySelector
+		-1, // Value
+		-1, // Values
+		-1, // Properties
+		
+
+	},
+	gotoRow{ // S40
+		
+		-1, // S'
+		-1, // CSS
+		-1, // Rules
+		-1, // Rule
+		-1, // Selector
+		-1, // SimpleSelector
+		-1, // FixedSelector
+		-1, // NameSelector
+		-1, // ClassSelector
+		-1, // PClassSelector
 		-1, // IdSelector
 		-1, // ChildSelector
 		-1, // ChildAnySelector

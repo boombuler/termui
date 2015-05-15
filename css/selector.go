@@ -51,6 +51,24 @@ func (ns NameSelector) weight() selectorWeight {
 	return selectorWeight{0, 0, 0, 1}
 }
 
+type PseudoClassSelector string
+
+func (pcs PseudoClassSelector) Matches(s Styleable) bool {
+	if s == nil {
+		return false
+	}
+	for _, class := range s.PseudoClasses() {
+		if class == string(pcs) {
+			return true
+		}
+	}
+	return false
+}
+
+func (pcs PseudoClassSelector) weight() selectorWeight {
+	return selectorWeight{0, 0, 1, 0}
+}
+
 type ClassSelector string
 
 func (cs ClassSelector) Matches(s Styleable) bool {
@@ -111,4 +129,25 @@ func (ps ParentSelector) Matches(s Styleable) bool {
 
 func (ps ParentSelector) weight() selectorWeight {
 	return ps.Child.weight().Add(ps.Parent.weight())
+}
+
+type AndSelector []Selector
+
+func (as AndSelector) Matches(s Styleable) bool {
+	for _, sel := range as {
+		if !sel.Matches(s) {
+			return false
+		}
+	}
+	return true
+}
+
+func (as AndSelector) weight() selectorWeight {
+	var sum selectorWeight
+
+	for _, sel := range as {
+		sum = sum.Add(sel.weight())
+	}
+
+	return sum
 }

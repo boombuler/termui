@@ -10,4 +10,16 @@ func init() {
 		BackgroundProperty: termbox.ColorDefault,
 		ForegroundProperty: termbox.ColorDefault,
 	})
+
+	textbox := css.ClassSelector("textbox")
+	css.AddUserAgentStyle(textbox, css.Style{
+		BackgroundProperty: termbox.ColorWhite,
+		ForegroundProperty: termbox.ColorBlack,
+	})
+
+	focused := css.PseudoClassSelector(pclass_Focused)
+	css.AddUserAgentStyle(css.AndSelector{textbox, focused}, css.Style{
+		BackgroundProperty: termbox.ColorBlue,
+		ForegroundProperty: termbox.ColorWhite,
+	})
 }
