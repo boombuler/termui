@@ -10,6 +10,7 @@ type TextBox struct {
 	BaseElement
 	width int
 
+	stopTicker     chan struct{}
 	ticker         *time.Ticker
 	blinkOn        bool
 	text           []byte
@@ -76,16 +77,26 @@ func (tb *TextBox) SetFocused(v bool) {
 	if v {
 		ticker := time.NewTicker(blink_freq)
 		tb.ticker = ticker
+		tb.stopTicker = make(chan struct{})
+		tb.blinkOn = true
 		go func() {
-			for _ = range ticker.C {
-				tb.blinkOn = !tb.blinkOn
-				Update()
+			for {
+				select {
+				case <-ticker.C:
+					tb.blinkOn = !tb.blinkOn
+					Update()
+				case <-tb.stopTicker:
+					tb.blinkOn = false
+					Update()
+					return
+				}
 			}
 		}()
 	} else {
 		tb.ticker.Stop()
 		tb.ticker = nil
-		tb.blinkOn = false
+		tb.stopTicker <- struct{}{}
+		close(tb.stopTicker)
 	}
 }
 
