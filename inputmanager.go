@@ -1,6 +1,7 @@
 package termui
 
 import (
+	"github.com/boombuler/termui/css"
 	"github.com/nsf/termbox-go"
 )
 
@@ -14,6 +15,10 @@ type intputManager struct {
 func newInputManager(root Element) *intputManager {
 	im := &intputManager{root: root}
 	im.Next()
+
+	css.SetPseudoClassMatcher(pclass_Focused, css.PseudoClassMatcherFunc(func(s css.Styleable) bool {
+		return im.current == s
+	}))
 	return im
 }
 
@@ -39,7 +44,6 @@ func (im *intputManager) getFocusableItems() []FocusElement {
 func (im *intputManager) Next() {
 	items := im.getFocusableItems()
 	if im.current != nil {
-		im.current.RemovePseudoClass(pclass_Focused)
 		im.current.SetFocused(false)
 	}
 	if len(items) > 0 {
@@ -53,7 +57,6 @@ func (im *intputManager) Next() {
 		curIdx = (curIdx + 1) % len(items)
 		im.current = items[curIdx]
 		if im.current != nil {
-			im.current.AddPseudoClass(pclass_Focused)
 			im.current.SetFocused(true)
 		}
 	} else {

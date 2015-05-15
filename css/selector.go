@@ -51,24 +51,6 @@ func (ns NameSelector) weight() selectorWeight {
 	return selectorWeight{0, 0, 0, 1}
 }
 
-type PseudoClassSelector string
-
-func (pcs PseudoClassSelector) Matches(s Styleable) bool {
-	if s == nil {
-		return false
-	}
-	for _, class := range s.PseudoClasses() {
-		if class == string(pcs) {
-			return true
-		}
-	}
-	return false
-}
-
-func (pcs PseudoClassSelector) weight() selectorWeight {
-	return selectorWeight{0, 0, 1, 0}
-}
-
 type ClassSelector string
 
 func (cs ClassSelector) Matches(s Styleable) bool {

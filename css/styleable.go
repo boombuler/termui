@@ -5,10 +5,6 @@ type Styleable interface {
 	Name() string
 	Classes() []string
 
-	PseudoClasses() []string
-	AddPseudoClass(string)
-	RemovePseudoClass(string)
-
 	Parent() Styleable
 }
 
@@ -22,7 +18,7 @@ func (cm ClassMap) Remove(s string) {
 	delete(cm, s)
 }
 
-func (cm ClassMap) List() []string {
+func (cm ClassMap) Classes() []string {
 	res := make([]string, 0, len(cm))
 	for k := range cm {
 		res = append(res, k)
@@ -31,24 +27,8 @@ func (cm ClassMap) List() []string {
 }
 
 type IdAndClasses struct {
-	id       string
-	pclasses ClassMap
-	classes  ClassMap
-}
-
-func (s *IdAndClasses) PseudoClasses() []string {
-	return s.pclasses.List()
-}
-func (s *IdAndClasses) AddPseudoClass(name string) {
-	if s.pclasses == nil {
-		s.pclasses = make(ClassMap)
-	}
-	s.pclasses.Add(name)
-}
-func (s *IdAndClasses) RemovePseudoClass(name string) {
-	if s.pclasses != nil {
-		s.pclasses.Remove(name)
-	}
+	id      string
+	classes ClassMap
 }
 
 func (s *IdAndClasses) AddClass(name string) {
@@ -63,7 +43,7 @@ func (s *IdAndClasses) RemoveClass(name string) {
 	}
 }
 func (s *IdAndClasses) Classes() []string {
-	return s.classes.List()
+	return s.classes.Classes()
 }
 func (s *IdAndClasses) SetId(id string) {
 	s.id = id

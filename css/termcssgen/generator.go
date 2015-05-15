@@ -92,6 +92,8 @@ func selector_to_str(sel css.Selector) string {
 		return fmt.Sprintf("css.IdSelector(\"%v\")", string(name))
 	} else if ps, ok := sel.(css.ParentSelector); ok {
 		return fmt.Sprintf("css.ParentSelector{%v, %v}", selector_to_str(ps.Parent), selector_to_str(ps.Child))
+	} else if name, ok := sel.(css.PseudoClassSelector); ok {
+		return fmt.Sprintf("css.PseudoClassSelector(\"%v\")", string(name))
 	}
 	panic("Invalid Selector Type!")
 }
