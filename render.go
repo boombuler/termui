@@ -17,6 +17,10 @@ func (r Renderer) Set(x, y int, ch rune) {
 	termbox.SetCell(x+r.x, y+r.y, ch, r.fg, r.bg)
 }
 
+func (r Renderer) SetAttr(x, y int, ch rune, attr termbox.Attribute) {
+	termbox.SetCell(x+r.x, y+r.y, ch, r.fg|attr, r.bg)
+}
+
 func (r Renderer) RenderChild(e Element, width, height, xOffset, yOffset int) {
 	elW, elH := e.Width(), e.Height()
 

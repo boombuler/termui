@@ -2,6 +2,7 @@ package termui
 
 import (
 	"github.com/nsf/termbox-go"
+	"time"
 	"unicode/utf8"
 )
 
@@ -9,11 +10,15 @@ type TextBox struct {
 	BaseElement
 	width int
 
+	ticker         *time.Ticker
+	blinkOn        bool
 	text           []byte
 	line_voffset   int
 	cursor_boffset int // cursor offset in bytes
 	cursor_coffset int // cursor offset in unicode code points
 }
+
+const blink_freq = 500 * time.Millisecond
 
 var _ FocusElement = &TextBox{}
 
@@ -68,11 +73,32 @@ func (tb *TextBox) Width() int {
 }
 
 func (tb *TextBox) SetFocused(v bool) {
+	if v {
+		ticker := time.NewTicker(blink_freq)
+		tb.ticker = ticker
+		go func() {
+			for _ = range ticker.C {
+				tb.blinkOn = !tb.blinkOn
+				Update()
+			}
+		}()
+	} else {
+		tb.ticker.Stop()
+		tb.ticker = nil
+		tb.blinkOn = false
+	}
 }
 
 func (tb *TextBox) Render(fn Renderer) {
+	cursorPos := tb.cursor_coffset - tb.line_voffset
+
 	for lx := 0; lx < tb.width; lx++ {
-		fn.Set(lx, 0, ' ')
+		if lx == cursorPos && tb.blinkOn {
+			fn.SetAttr(lx, 0, ' ', termbox.AttrReverse)
+		} else {
+			fn.Set(lx, 0, ' ')
+		}
+
 	}
 
 	t := tb.text
@@ -90,7 +116,11 @@ func (tb *TextBox) Render(fn Renderer) {
 
 		r, size := utf8.DecodeRune(t)
 		if rx >= 0 {
-			fn.Set(rx, 0, r)
+			if rx == cursorPos && tb.blinkOn {
+				fn.SetAttr(rx, 0, r, termbox.AttrReverse)
+			} else {
+				fn.Set(rx, 0, r)
+			}
 		}
 		lx += 1
 		t = t[size:]
