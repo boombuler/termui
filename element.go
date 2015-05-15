@@ -49,7 +49,7 @@ func (be *BaseElement) Parent() css.Styleable {
 	return be.parent
 }
 
-func getGravity(e Element) Gravity {
+func () getGravity(e Element) Gravity {
 	style := css.Get(e)
 	gravity := NoGravity
 	if gravAny, ok := style[GravityProperty]; ok {
