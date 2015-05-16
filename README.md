@@ -83,12 +83,72 @@ func main() {
 to generate the go file with the compiled style you just need to invoke `go generate`
 
 
+### Userdefined styles
+
+It is also possible to load a style at runtime for example:
+
+```go
+package main
+
+import (
+    "github.com/boombuler/termui"
+    "github.com/boombuler/termui/css"
+    "github.com/boombuler/termui/css/parser"
+    "github.com/nsf/termbox-go"
+)
+
+func main() {
+    vPanel := termui.NewVPanel()               // create a new panel
+    vPanel.AddChild(
+        termui.NewText("Hello"),               // static text "Hello"
+        termui.NewTextBox(),                   // and a textbox
+        termui.NewText("World"),               // static text "World"
+        termui.NewTextBox(),                   // and another textbox
+    )
+
+    styledef := `
+
+text {
+  background: red;
+  color: black;
+}
+
+vpanel > * {
+  gravity: right;
+}
+
+textbox:focused {
+  background: magenta;
+  color: black;
+}`
+    if parsedStyle, err := parser.Parse([]byte(styledef)); err != nil {
+        panic(err)
+    } else {
+        css.SetUserStyles(parsedStyle)
+    }
+
+    termui.Start(vPanel)                       // Start the ui rendering.
+    go func() {                                // Start a message loop for unhandled events.
+        for ev := range termui.Events {
+            if ev.Type == termbox.EventKey {
+                if ev.Key == termbox.KeyEsc {  // If the user press `Esc`:
+                    termui.Stop()              // Stop the UI
+                }
+            }
+        }
+    }()
+
+    termui.Wait()                              // Wait for the ui lib to finish.
+}
+```
+
+
 ## Todo
 * Examples and documentation
 * Element Styles
 * Mouse support
 * Grid
-  * Add ColumnSpan and RowSpan
+  * Fix ColumnSpan and RowSpan to work with auto-width columns
 * More Elements.
   * WrapPanel
   * HPanel
