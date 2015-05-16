@@ -84,6 +84,7 @@ to generate the go file with the compiled style you just need to invoke `go gene
 
 ## Todo
 * Examples and documentation
+* Element Styles
 * More Elements.
   * Grid
   * WrapPanel
