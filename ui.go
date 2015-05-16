@@ -18,14 +18,21 @@ func Start(body Element) {
 	termbox.Init()
 	eventChan := make(chan termbox.Event)
 	updateChan = make(chan struct{})
+	quitChan = make(chan struct{})
 	go func() {
-		for e := range termbox.PollEvent() {
-			eventChan <- e
+	loop:
+		for {
+			select {
+			case <-quitChan:
+				break loop
+			default:
+				eventChan <- termbox.PollEvent()
+			}
 		}
+
 		close(eventChan)
 	}()
 
-	quitChan = make(chan struct{})
 	events := make(chan termbox.Event)
 	Events = events
 
@@ -79,6 +86,6 @@ func Wait() {
 
 func Stop() {
 	go func() {
-		quitChan <- struct{}{}
+		close(quitChan)
 	}()
 }

@@ -39,7 +39,7 @@ AttrSelectors    : AttrSelector AttrSelectors                     <<append($1.(c
                  | AttrSelector                                   <<css.AndSelector{$0.(css.Selector)}, nil>>
                  ;
 
-AttrSelector     : "#"id                                          <<css.IdSelector(str($1)), nil>>
+AttrSelector     : "#"id                                          <<css.IDSelector(str($1)), nil>>
                  | ":"id                                          <<css.PseudoClassSelector(str($1)), nil>>
                  | "."id                                          <<css.ClassSelector(str($1)), nil>>
                  ;

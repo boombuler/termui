@@ -37,6 +37,7 @@ func parseBase(data []byte) (internal.Rules, error) {
 	return nil, fmt.Errorf("Invalid parsing result %v", res)
 }
 
+// Parse returns the parsed style or an error for the given css. This can be used to load user specific styles.
 func Parse(data []byte) (css.SelectorStyles, error) {
 	rules, err := parseBase(data)
 	if err != nil {

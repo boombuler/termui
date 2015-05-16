@@ -1,5 +1,6 @@
 package termui
 
+// Border draws a border around a given child element
 type Border struct {
 	BaseElement
 	child Element
@@ -9,14 +10,17 @@ type Border struct {
 
 var _ Element = new(Border) // Interface checking...
 
+// Width returns the width of the border
 func (b *Border) Width() int {
 	return b.width
 }
 
+// Height returns the height of the border
 func (b *Border) Height() int {
 	return b.height
 }
 
+// Children returns all nested child elements of the border
 func (b *Border) Children() []Element {
 	if b.child != nil {
 		return []Element{b.child}
@@ -24,10 +28,12 @@ func (b *Border) Children() []Element {
 	return []Element{}
 }
 
+// Name returns the constant name of the border struct for css styling
 func (b *Border) Name() string {
 	return "border"
 }
 
+// Measure gets the "wanted" size of the element based on the available size
 func (b *Border) Measure(availableWidth, availableHeight int) (width int, height int) {
 	if b.child == nil {
 		return 2, 2
@@ -48,6 +54,7 @@ func (b *Border) Measure(availableWidth, availableHeight int) (width int, height
 	return
 }
 
+// Arrange sets the final size for the Element end tells it to Arrange itself
 func (b *Border) Arrange(finalWidth, finalHeight int) {
 	if finalWidth > 2 && finalHeight > 2 && b.child != nil {
 		b.child.Arrange(finalWidth-2, finalHeight-2)
@@ -55,6 +62,7 @@ func (b *Border) Arrange(finalWidth, finalHeight int) {
 	b.width, b.height = finalWidth, finalHeight
 }
 
+// Render renders the element on the given Renderer
 func (b *Border) Render(r Renderer) {
 	for x := 1; x < b.width-1; x++ {
 		r.Set(x, 0, border_horizontal_line)
@@ -79,6 +87,7 @@ func (b *Border) Render(r Renderer) {
 	}
 }
 
+// NewBorder creates a new border element with the given child
 func NewBorder(child Element) *Border {
 	b := &Border{
 		child: child,
@@ -89,6 +98,7 @@ func NewBorder(child Element) *Border {
 	return b
 }
 
+// TextBorder is a border with a text on the top left corner
 type TextBorder struct {
 	*Border
 	txt []rune
@@ -96,6 +106,7 @@ type TextBorder struct {
 
 var _ Element = new(TextBorder) // Interface checking...
 
+// NewTextBorder creates a new TextBorder with a given text and child
 func NewTextBorder(txt string, child Element) *TextBorder {
 	return &TextBorder{
 		NewBorder(child),
@@ -103,6 +114,7 @@ func NewTextBorder(txt string, child Element) *TextBorder {
 	}
 }
 
+// Render renders the element on the given Renderer
 func (b *TextBorder) Render(rn Renderer) {
 	b.Border.Render(rn)
 	w := b.Width() - 2
@@ -114,10 +126,12 @@ func (b *TextBorder) Render(rn Renderer) {
 	}
 }
 
+// SetText sets the text on the border
 func (b *TextBorder) SetText(txt string) {
 	b.txt = []rune(txt)
 }
 
+// Text returns the current text value
 func (b *TextBorder) Text() string {
 	return string(b.txt)
 }

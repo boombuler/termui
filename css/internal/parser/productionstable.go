@@ -171,13 +171,13 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `AttrSelector : "#" id	<< css.IdSelector(str(X[1])), nil >>`,
+		String: `AttrSelector : "#" id	<< css.IDSelector(str(X[1])), nil >>`,
 		Id: "AttrSelector",
 		NTType: 8,
 		Index: 15,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return css.IdSelector(str(X[1])), nil
+			return css.IDSelector(str(X[1])), nil
 		},
 	},
 	ProdTabEntry{

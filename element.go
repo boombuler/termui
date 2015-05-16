@@ -20,13 +20,20 @@ const (
 
 type Element interface {
 	css.Styleable
+	// Measure gets the "wanted" size of the element based on the available size
 	Measure(availableWidth, availableHeight int) (width int, height int)
+	// Arrange sets the final size for the Element end tells it to Arrange itself
 	Arrange(finalWidth, finalHeight int)
+	// Render renders the element on the given Renderer
 	Render(fn Renderer)
+	// Width returns the width of the border
 	Width() int
+	// Height returns the height of the element
 	Height() int
 
+	// Children returns all nested child elements of the element
 	Children() []Element
+	// SetParent sets the parent element of this element
 	SetParent(e Element)
 }
 
@@ -37,14 +44,16 @@ type FocusElement interface {
 }
 
 type BaseElement struct {
-	css.IdAndClasses
+	css.IDAndClasses
 	parent Element
 }
 
+// SetParent sets the parent element of this element
 func (be *BaseElement) SetParent(e Element) {
 	be.parent = e
 }
 
+// Parent returns the parent of the element
 func (be *BaseElement) Parent() css.Styleable {
 	return be.parent
 }

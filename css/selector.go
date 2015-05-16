@@ -1,6 +1,8 @@
 package css
 
+// Selector defines a CSS selector which can be matched against styleable elements.
 type Selector interface {
+	// Matches returns true if the selector matches the styleable element.
 	Matches(Styleable) bool
 	weight() selectorWeight
 }
@@ -19,7 +21,9 @@ func (sw selectorWeight) Add(other selectorWeight) selectorWeight {
 }
 
 var (
-	AnySelector  Selector = anySelector{}
+	// AnySelector is a selector which matches any element.
+	AnySelector Selector = anySelector{}
+	// BodySelector is a selector which matches a virtual "body" element.
 	BodySelector Selector = bodySelector{}
 )
 
@@ -42,8 +46,10 @@ func (as anySelector) weight() selectorWeight {
 	return selectorWeight{0, 0, 0, 0}
 }
 
+// NameSelector is a selector which matches the name of the styleable element.
 type NameSelector string
 
+// Matches returns true if the selector matches the styleable element.
 func (ns NameSelector) Matches(s Styleable) bool {
 	return s != nil && s.Name() == string(ns)
 }
@@ -51,8 +57,10 @@ func (ns NameSelector) weight() selectorWeight {
 	return selectorWeight{0, 0, 0, 1}
 }
 
+// ClassSelector matches an element if it has the given class.
 type ClassSelector string
 
+// Matches returns true if the selector matches the styleable element.
 func (cs ClassSelector) Matches(s Styleable) bool {
 	if s == nil {
 		return false
@@ -69,24 +77,29 @@ func (cs ClassSelector) weight() selectorWeight {
 	return selectorWeight{0, 0, 1, 0}
 }
 
-type IdSelector string
+// IDSelector matches an element by its id.
+type IDSelector string
 
-func (is IdSelector) Matches(s Styleable) bool {
-	return s != nil && s.Id() == string(is)
+// Matches returns true if the selector matches the styleable element.
+func (is IDSelector) Matches(s Styleable) bool {
+	return s != nil && s.ID() == string(is)
 }
 
-func (is IdSelector) weight() selectorWeight {
+func (is IDSelector) weight() selectorWeight {
 	return selectorWeight{0, 1, 0, 0}
 }
 
+// ElementSelector is a selector which directly matches a given element.
 type ElementSelector struct {
 	elem Styleable
 }
 
+// NewElementSelector creates a selector which only matches the given type.
 func NewElementSelector(elem Styleable) ElementSelector {
 	return ElementSelector{elem}
 }
 
+// Matches returns true if the selector matches the styleable element.
 func (es ElementSelector) Matches(s Styleable) bool {
 	return es.elem == s
 }
@@ -95,10 +108,15 @@ func (es ElementSelector) weight() selectorWeight {
 	return selectorWeight{1, 0, 0, 0}
 }
 
+// ParentSelector matches if the Parent field matches the direkt parent of the element and the Child field matches the element.
 type ParentSelector struct {
-	Parent, Child Selector
+	// Parent is tested against the direct parent of the element.
+	Parent,
+	// Child is tested against the element.
+	Child Selector
 }
 
+// Matches returns true if the selector matches the styleable element.
 func (ps ParentSelector) Matches(s Styleable) bool {
 	if ps.Child.Matches(s) {
 		if s != nil {
@@ -113,10 +131,15 @@ func (ps ParentSelector) weight() selectorWeight {
 	return ps.Child.weight().Add(ps.Parent.weight())
 }
 
+// AnyParentSelector is a selector which matches if any parent matches the parent selector.
 type AnyParentSelector struct {
-	Parent, Child Selector
+	// Parent selector which should match a parent at any level.
+	Parent,
+	// Child selector which must be matched by the element.
+	Child Selector
 }
 
+// Matches returns true if the selector matches the styleable element.
 func (ps AnyParentSelector) Matches(s Styleable) bool {
 	if ps.Child.Matches(s) {
 		for s != nil {
@@ -133,8 +156,10 @@ func (ps AnyParentSelector) weight() selectorWeight {
 	return ps.Child.weight().Add(ps.Parent.weight())
 }
 
+// AndSelector is a selector which matches if all nested selectors match.
 type AndSelector []Selector
 
+// Matches returns true if the selector matches the styleable element.
 func (as AndSelector) Matches(s Styleable) bool {
 	for _, sel := range as {
 		if !sel.Matches(s) {
