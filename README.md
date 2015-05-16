@@ -11,8 +11,9 @@ For now there are only a few elements:
 * `Text` is for basic text outpu
 * `Border` draws a border around a given child
 * `TextBorder` like a border but it also draws some text on the top left corner of the border.
-* `VPanel` stacks multiple childs vertically
 * `TextBox` allows the user to enter text.
+* `VPanel` stacks multiple children vertically
+* `Grid` a table like layout for multiple children
 
 ### Example
 
@@ -85,6 +86,7 @@ to generate the go file with the compiled style you just need to invoke `go gene
 ## Todo
 * Examples and documentation
 * Element Styles
+* Grid
+  * Add ColumnSpan and RowSpan
 * More Elements.
-  * Grid
   * WrapPanel

@@ -8,6 +8,7 @@ import (
 var (
 	quitChan   chan struct{}
 	updateChan chan struct{}
+	newBody    chan Element
 	wgexit     *sync.WaitGroup
 	// Events can be used to recieve unhandled termbox events.
 	Events <-chan termbox.Event
@@ -21,6 +22,7 @@ func Start(body Element) {
 	eventChan := make(chan termbox.Event)
 	updateChan = make(chan struct{})
 	quitChan = make(chan struct{})
+	newBody = make(chan Element)
 	go func() {
 	loop:
 		for {
@@ -45,11 +47,15 @@ func Start(body Element) {
 			close(events)
 			wgexit.Done()
 			termbox.Close()
+
+			close(eventChan)
+			close(updateChan)
+			close(newBody)
 		}()
 
 		body.Arrange(body.Measure(termbox.Size()))
 		for {
-			termbox.Clear(termbox.ColorWhite, termbox.ColorBlue)
+			termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 			w, h := termbox.Size()
 			rootrenderer.RenderChild(body, w, h, 0, 0)
 
@@ -70,9 +76,19 @@ func Start(body Element) {
 				}
 			case <-updateChan:
 				body.Arrange(body.Measure(termbox.Size()))
+			case nb := <-newBody:
+				body = nb
+				body.Arrange(body.Measure(termbox.Size()))
 			}
 
 		}
+	}()
+}
+
+// SetBody replaces the root element with the new body.
+func SetBody(e Element) {
+	go func() {
+		newBody <- e
 	}()
 }
 

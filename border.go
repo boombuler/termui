@@ -41,12 +41,12 @@ func (b *Border) Measure(availableWidth, availableHeight int) (width int, height
 
 	cw, ch := b.child.Measure(availableWidth-2, availableHeight-2)
 	grav := GravityProperty.Get(b)
-	if grav&horizontal == horizontal { // stretch
+	if grav&horizontal == horizontal && availableWidth > 0 { // stretch
 		width = availableWidth
 	} else {
 		width = cw + 2
 	}
-	if grav&vertical == vertical {
+	if grav&vertical == vertical && availableHeight > 0 {
 		height = availableHeight
 	} else {
 		height = ch + 2

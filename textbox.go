@@ -38,7 +38,16 @@ func (tb *TextBox) Name() string {
 
 // Measure gets the "wanted" size of the element based on the available size
 func (tb *TextBox) Measure(availableWidth, availableHeight int) (width int, height int) {
-	return availableWidth, 1
+	width = utf8.RuneCount(tb.text)
+	if width > availableWidth && availableWidth > 0 {
+		width = availableWidth
+	}
+
+	height = 1
+	if height > availableHeight && availableHeight > 0 {
+		height = availableHeight
+	}
+	return
 }
 
 // Text returns the current text of the textbox
