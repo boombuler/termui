@@ -86,7 +86,12 @@ to generate the go file with the compiled style you just need to invoke `go gene
 ## Todo
 * Examples and documentation
 * Element Styles
+* Mouse support
 * Grid
   * Add ColumnSpan and RowSpan
 * More Elements.
   * WrapPanel
+  * HPanel
+  * Button
+  * TabControl
+* Modal Dialogs
