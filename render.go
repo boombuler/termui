@@ -1,44 +1,36 @@
 package termui
 
 import (
-	"github.com/boombuler/termui/css"
 	"github.com/nsf/termbox-go"
 )
 
-var rootrenderer Renderer = Renderer{0, 0, nil, termbox.ColorDefault, termbox.ColorDefault}
+var rootrenderer = Renderer{0, 0, nil, termbox.ColorDefault, termbox.ColorDefault}
 
+// Renderer helps drawing an element
 type Renderer struct {
 	x, y   int
 	cur    Element
 	fg, bg termbox.Attribute
 }
 
+// Set the given rune at a relative x and y position
 func (r Renderer) Set(x, y int, ch rune) {
 	termbox.SetCell(x+r.x, y+r.y, ch, r.fg, r.bg)
 }
 
+// SetAttr sets the given rune at a relative x and y position and applys the attribute to the foreground.
+// This can be used to invert or underline a cell.
 func (r Renderer) SetAttr(x, y int, ch rune, attr termbox.Attribute) {
 	termbox.SetCell(x+r.x, y+r.y, ch, r.fg|attr, r.bg)
 }
 
+// RenderChild draws the given child.
 func (r Renderer) RenderChild(e Element, width, height, xOffset, yOffset int) {
 	elW, elH := e.Width(), e.Height()
 
-	style := css.Get(e)
-
-	var ok bool
-	var gravity Gravity
-	if gravity, ok = style.Value(GravityProperty).(Gravity); !ok {
-		gravity = NoGravity
-	}
-
-	var fg, bg termbox.Attribute
-	if fg, ok = style.Value(ForegroundProperty).(termbox.Attribute); !ok {
-		fg = termbox.ColorDefault
-	}
-	if bg, ok = style.Value(BackgroundProperty).(termbox.Attribute); !ok {
-		bg = termbox.ColorDefault
-	}
+	gravity := GravityProperty.Get(e)
+	fg := ForegroundProperty.Get(e)
+	bg := BackgroundProperty.Get(e)
 
 	switch gravity & horizontal {
 	case Left, Left | Right:

@@ -5,7 +5,7 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
-const pclass_Focused = "focused"
+const pclassFocused = "focused"
 
 type intputManager struct {
 	root    Element
@@ -16,7 +16,7 @@ func newInputManager(root Element) *intputManager {
 	im := &intputManager{root: root}
 	im.Next()
 
-	css.SetPseudoClassMatcher(pclass_Focused, css.PseudoClassMatcherFunc(func(s css.Styleable) bool {
+	css.SetPseudoClassMatcher(pclassFocused, css.PseudoClassMatcherFunc(func(s css.Styleable) bool {
 		return im.current == s
 	}))
 	return im
@@ -24,7 +24,7 @@ func newInputManager(root Element) *intputManager {
 
 func (im *intputManager) getFocusableItems() []FocusElement {
 	itmStack := []Element{im.root}
-	items := make([]FocusElement, 0)
+	var items []FocusElement
 	for len(itmStack) > 0 {
 		lastIdx := len(itmStack) - 1
 		cur := itmStack[lastIdx]

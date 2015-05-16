@@ -10,17 +10,17 @@ type Border struct {
 
 var _ Element = new(Border) // Interface checking...
 
-// Width returns the width of the border
+// Width returns the width of the border.
 func (b *Border) Width() int {
 	return b.width
 }
 
-// Height returns the height of the border
+// Height returns the height of the border.
 func (b *Border) Height() int {
 	return b.height
 }
 
-// Children returns all nested child elements of the border
+// Children returns all nested child elements of the border.
 func (b *Border) Children() []Element {
 	if b.child != nil {
 		return []Element{b.child}
@@ -28,19 +28,19 @@ func (b *Border) Children() []Element {
 	return []Element{}
 }
 
-// Name returns the constant name of the border struct for css styling
+// Name returns the constant name of the border element for css styling.
 func (b *Border) Name() string {
 	return "border"
 }
 
-// Measure gets the "wanted" size of the element based on the available size
+// Measure gets the "wanted" size of the element based on the available size.
 func (b *Border) Measure(availableWidth, availableHeight int) (width int, height int) {
 	if b.child == nil {
 		return 2, 2
 	}
 
 	cw, ch := b.child.Measure(availableWidth-2, availableHeight-2)
-	grav := getGravity(b)
+	grav := GravityProperty.Get(b)
 	if grav&horizontal == horizontal { // stretch
 		width = availableWidth
 	} else {
@@ -65,22 +65,22 @@ func (b *Border) Arrange(finalWidth, finalHeight int) {
 // Render renders the element on the given Renderer
 func (b *Border) Render(r Renderer) {
 	for x := 1; x < b.width-1; x++ {
-		r.Set(x, 0, border_horizontal_line)
-		r.Set(x, b.height-1, border_horizontal_line)
+		r.Set(x, 0, borderHorizontalLine)
+		r.Set(x, b.height-1, borderHorizontalLine)
 
 		for y := 1; y < b.height-1; y++ {
 			r.Set(x, y, ' ')
 		}
 	}
 	for y := 1; y < b.height-1; y++ {
-		r.Set(0, y, border_vertical_line)
-		r.Set(b.width-1, y, border_vertical_line)
+		r.Set(0, y, borderVerticalLine)
+		r.Set(b.width-1, y, borderVerticalLine)
 	}
 
-	r.Set(0, 0, border_top_left)
-	r.Set(0, b.height-1, border_bottom_left)
-	r.Set(b.width-1, 0, border_top_right)
-	r.Set(b.width-1, b.height-1, border_bottom_right)
+	r.Set(0, 0, borderTopLeft)
+	r.Set(0, b.height-1, borderBottomLeft)
+	r.Set(b.width-1, 0, borderTopRight)
+	r.Set(b.width-1, b.height-1, borderBottomRight)
 
 	if b.child != nil {
 		r.RenderChild(b.child, b.width-2, b.height-2, 1, 1)

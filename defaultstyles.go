@@ -7,19 +7,19 @@ import (
 
 func init() {
 	css.AddUserAgentStyle(css.BodySelector, css.Style{
-		BackgroundProperty: termbox.ColorDefault,
-		ForegroundProperty: termbox.ColorDefault,
+		BackgroundProperty.Property: termbox.ColorDefault,
+		ForegroundProperty.Property: termbox.ColorDefault,
 	})
 
 	textbox := css.NameSelector("textbox")
 	css.AddUserAgentStyle(textbox, css.Style{
-		BackgroundProperty: termbox.ColorWhite,
-		ForegroundProperty: termbox.ColorBlack,
+		BackgroundProperty.Property: termbox.ColorWhite,
+		ForegroundProperty.Property: termbox.ColorBlack,
 	})
 
-	focused := css.PseudoClassSelector(pclass_Focused)
+	focused := css.PseudoClassSelector(pclassFocused)
 	css.AddUserAgentStyle(css.AndSelector{textbox, focused}, css.Style{
-		BackgroundProperty: termbox.ColorBlue,
-		ForegroundProperty: termbox.ColorWhite,
+		BackgroundProperty.Property: termbox.ColorBlue,
+		ForegroundProperty.Property: termbox.ColorWhite,
 	})
 }

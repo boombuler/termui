@@ -9,9 +9,11 @@ var (
 	quitChan   chan struct{}
 	updateChan chan struct{}
 	wgexit     *sync.WaitGroup
-	Events     <-chan termbox.Event
+	// Events can be used to recieve unhandled termbox events.
+	Events <-chan termbox.Event
 )
 
+// Start the UI with the given element as root.
 func Start(body Element) {
 	wgexit = new(sync.WaitGroup)
 	wgexit.Add(1)
@@ -74,16 +76,19 @@ func Start(body Element) {
 	}()
 }
 
+// Update tells the UI to update measurement and render again.
 func Update() {
 	go func() {
 		updateChan <- struct{}{}
 	}()
 }
 
+// Wait for the UI to finish.
 func Wait() {
 	wgexit.Wait()
 }
 
+// Stop shutsdown the UI.
 func Stop() {
 	go func() {
 		close(quitChan)

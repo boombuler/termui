@@ -1,5 +1,6 @@
 package termui
 
+// VPanel is an UI element which stacks multiple elements in vertical order.
 type VPanel struct {
 	BaseElement
 	childs        []Element
@@ -10,23 +11,30 @@ type VPanel struct {
 
 var _ Element = new(VPanel) // Interface checking...
 
+// NewVPanel creates a new VPanel
 func NewVPanel() *VPanel {
 	return new(VPanel)
 }
 
+// Name returns the constant name of the vpanel for css styling.
 func (v *VPanel) Name() string {
-	return "VPanel"
+	return "vpanel"
 }
 
+// Children returns all nested elements.
 func (v *VPanel) Children() []Element {
 	return v.childs
 }
 
-func (v *VPanel) AddChild(e Element) {
-	v.childs = append(v.childs, e)
-	e.SetParent(v)
+// AddChild adds the given children to the vpanel
+func (v *VPanel) AddChild(e ...Element) {
+	v.childs = append(v.childs, e...)
+	for _, c := range e {
+		c.SetParent(v)
+	}
 }
 
+// Measure gets the "wanted" size of the element based on the available size
 func (v *VPanel) Measure(availableWidth, availableHeight int) (width int, height int) {
 	width, height = 0, 0
 	v.heights = make(map[Element]int)
@@ -43,6 +51,7 @@ func (v *VPanel) Measure(availableWidth, availableHeight int) (width int, height
 	return
 }
 
+// Arrange sets the final size for the Element end tells it to Arrange itself
 func (v *VPanel) Arrange(finalWidth, finalHeight int) {
 	v.width, v.height = finalWidth, finalHeight
 
@@ -64,6 +73,7 @@ func (v *VPanel) Arrange(finalWidth, finalHeight int) {
 	}
 }
 
+// Render renders the element on the given Renderer
 func (v *VPanel) Render(rn Renderer) {
 	yOff := 0
 	for _, child := range v.childs {
@@ -76,9 +86,12 @@ func (v *VPanel) Render(rn Renderer) {
 	}
 }
 
+// Width returns the width of the vpanel
 func (v *VPanel) Width() int {
 	return v.width
 }
+
+// Height returns the height of the vpanel.
 func (v *VPanel) Height() int {
 	s := 0
 	for _, child := range v.childs {
