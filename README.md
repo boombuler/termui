@@ -1,5 +1,7 @@
 ## Introduction
 
+[![License: MIT](https://img.shields.io/:license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
+
 TermUI is a styleable UI lib for console applications. It consists of two parts:
 1) the elements which are the controls which build the UI
 2) the css part which allows theming of the elements in a css like manner.
