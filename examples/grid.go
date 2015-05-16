@@ -10,15 +10,15 @@ func main() {
 		[]int{
 			termui.GridSizeStar,
 			2,
-			2 * termui.GridSizeStar,
-			2,
 			termui.GridSizeAuto,
+			2,
+			2 * termui.GridSizeStar,
 		})
 
-	grd.AddChild(termui.NewBorder(termui.NewText("One Star")), 0, 0)
-	grd.AddChild(termui.NewBorder(termui.NewText("Two Star")), 0, 2)
-	grd.AddChild(termui.NewBorder(termui.NewText("Auto")), 0, 4)
-	grd.AddChild(termui.NewBorder(termui.NewText("Press Esc to exit!")), 2, 2)
+	grd.AddChild(termui.NewBorder(termui.NewText("One Star")), termui.GridPosition{0, 0, 1, 1})
+	grd.AddChild(termui.NewBorder(termui.NewText("Auto")), termui.GridPosition{2, 0, 1, 1})
+	grd.AddChild(termui.NewBorder(termui.NewText("Two Star")), termui.GridPosition{4, 0, 1, 1})
+	grd.AddChild(termui.NewBorder(termui.NewText("Press Esc to exit!")), termui.GridPosition{0, 2, 5, 1})
 
 	termui.Start(grd)
 	go func() {
