@@ -11,12 +11,10 @@ import (
 func main() {
 	css.SetDesignerStyles(defaultStyle())
 
-	tx := termui.NewText("Hallo Welt")
+	tx := termui.NewText("Hello World")
 
 	vInner := termui.NewVPanel()
-	vInner.AddChild(tx)
-	vInner.AddChild(termui.NewTextBox())
-	vInner.AddChild(termui.NewTextBox())
+	vInner.AddChild(tx, termui.NewTextBox(), termui.NewTextBox())
 
 	innerBox := termui.NewBorder(vInner)
 
