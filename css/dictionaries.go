@@ -32,13 +32,21 @@ func applyMatchingStyles(dict []SelectorStyle, s Styleable, curStyle Style) Styl
 // Get returns the calculated style for the given Styleable element.
 func Get(s Styleable) Style {
 	var baseStyle Style
+	var elemStyleDict []SelectorStyle
 	if s != nil {
 		baseStyle = Get(s.Parent()).Inherit()
+		elemStyle := s.ElementStyle()
+		if elemStyle != nil {
+			elemStyleDict = []SelectorStyle{
+				SelectorStyle{elementSelector{s}, elemStyle},
+			}
+		}
 	}
 
-	return applyMatchingStyles(userStyle, s,
-		applyMatchingStyles(designerStyle, s,
-			applyMatchingStyles(userAgentStyles, s, baseStyle)))
+	return applyMatchingStyles(elemStyleDict, s,
+		applyMatchingStyles(userStyle, s,
+			applyMatchingStyles(designerStyle, s,
+				applyMatchingStyles(userAgentStyles, s, baseStyle))))
 }
 
 // SetUserStyles sets the style overrides from the user. This replaces all other user styles which were added before.

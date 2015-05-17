@@ -89,22 +89,16 @@ func (is IDSelector) weight() selectorWeight {
 	return selectorWeight{0, 1, 0, 0}
 }
 
-// ElementSelector is a selector which directly matches a given element.
-type ElementSelector struct {
+type elementSelector struct {
 	elem Styleable
 }
 
-// NewElementSelector creates a selector which only matches the given type.
-func NewElementSelector(elem Styleable) ElementSelector {
-	return ElementSelector{elem}
-}
-
 // Matches returns true if the selector matches the styleable element.
-func (es ElementSelector) Matches(s Styleable) bool {
+func (es elementSelector) Matches(s Styleable) bool {
 	return es.elem == s
 }
 
-func (es ElementSelector) weight() selectorWeight {
+func (es elementSelector) weight() selectorWeight {
 	return selectorWeight{1, 0, 0, 0}
 }
 

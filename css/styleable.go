@@ -8,6 +8,8 @@ type Styleable interface {
 	Name() string
 	// Classes returns all classes of the element.
 	Classes() []string
+	// ElementStyle returns style values which are directly bound this an instance
+	ElementStyle() Style
 
 	// Parent returns the styleable parent of the element or nil if it has no parent.
 	Parent() Styleable
@@ -39,6 +41,23 @@ func (cm ClassMap) Classes() []string {
 type IDAndClasses struct {
 	id      string
 	classes ClassMap
+	es      Style
+}
+
+// ElementStyle returns style values which are directly bound this an instance
+func (s *IDAndClasses) ElementStyle() Style {
+	if s.es == nil {
+		s.es = make(Style)
+	}
+	return s.es
+}
+
+// Sets a style value for this instance
+func (s *IDAndClasses) SetProperty(p *Property, v interface{}) {
+	if s.es == nil {
+		s.es = make(Style)
+	}
+	s.es[p] = v
 }
 
 // AddClass adds a class to the element
