@@ -12,7 +12,7 @@ For now there are only a few elements:
 * `Border` draws a border around a given child
 * `TextBorder` like a border but it also draws some text on the top left corner of the border.
 * `TextBox` allows the user to enter text.
-* `VPanel` stacks multiple children vertically
+* `StackPanel` stacks multiple children vertical or horizontal
 * `Grid` a table like layout for multiple children
 
 ### Example
@@ -26,26 +26,26 @@ import (
 )
 
 func main() {
-    vPanel := termui.NewVPanel()               // create a new panel
+    vPanel := termui.NewStackPanel(termui.Vertical) // create a new panel
     vPanel.AddChild(
-        termui.NewText("Hello"),               // static text "Hello"
-        termui.NewTextBox(),                   // and a textbox
-        termui.NewText("World"),               // static text "World"
-        termui.NewTextBox(),                   // and another textbox
+        termui.NewText("Hello"),                    // static text "Hello"
+        termui.NewTextBox(),                        // and a textbox
+        termui.NewText("World"),                    // static text "World"
+        termui.NewTextBox(),                        // and another textbox
     )
 
-    termui.Start(vPanel)                       // Start the ui rendering.
-    go func() {                                // Start a message loop for unhandled events.
+    termui.Start(vPanel)                            // Start the ui rendering.
+    go func() {                                     // Start a message loop for unhandled events.
         for ev := range termui.Events {
             if ev.Type == termbox.EventKey {
-                if ev.Key == termbox.KeyEsc {  // If the user press `Esc`:
-                    termui.Stop()              // Stop the UI
+                if ev.Key == termbox.KeyEsc {       // If the user press `Esc`:
+                    termui.Stop()                   // Stop the UI
                 }
             }
         }
     }()
 
-    termui.Wait()                              // Wait for the ui lib to finish.
+    termui.Wait()                                   // Wait for the ui lib to finish.
 }
 ```
 
@@ -98,22 +98,21 @@ import (
 )
 
 func main() {
-    vPanel := termui.NewVPanel()               // create a new panel
+    vPanel := termui.NewStackPanel(termui.Vertical) // create a new panel
     vPanel.AddChild(
-        termui.NewText("Hello"),               // static text "Hello"
-        termui.NewTextBox(),                   // and a textbox
-        termui.NewText("World"),               // static text "World"
-        termui.NewTextBox(),                   // and another textbox
+        termui.NewText("Hello"),                    // static text "Hello"
+        termui.NewTextBox(),                        // and a textbox
+        termui.NewText("World"),                    // static text "World"
+        termui.NewTextBox(),                        // and another textbox
     )
 
     styledef := `
-
 text {
   background: red;
   color: black;
 }
 
-vpanel > * {
+stackpanel > * {
   gravity: right;
 }
 
@@ -145,13 +144,11 @@ textbox:focused {
 
 ## Todo
 * Examples and documentation
-* Element Styles
 * Mouse support
 * Grid
   * Fix ColumnSpan and RowSpan to work with auto-width columns
 * More Elements.
   * WrapPanel
-  * HPanel
   * Button
   * TabControl
 * Modal Dialogs

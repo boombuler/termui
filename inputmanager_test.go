@@ -5,7 +5,7 @@ import (
 )
 
 func Test_Next(t *testing.T) {
-	vPanel := NewVPanel()
+	vPanel := NewStackPanel(Vertical)
 	tb1 := NewTextBox()
 	tb2 := NewTextBox()
 	tb3 := NewTextBox()

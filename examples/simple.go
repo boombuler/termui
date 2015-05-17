@@ -13,7 +13,7 @@ func main() {
 
 	tx := termui.NewText("Hello World")
 
-	vInner := termui.NewVPanel()
+	vInner := termui.NewStackPanel(termui.Vertical)
 	vInner.AddChild(tx, termui.NewTextBox(), termui.NewTextBox())
 
 	innerBox := termui.NewBorder(vInner)
