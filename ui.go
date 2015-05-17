@@ -55,7 +55,7 @@ func Start(body Element) {
 
 		body.Arrange(body.Measure(termbox.Size()))
 		for {
-			termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
+			termbox.Clear(ForegroundProperty.Get(nil), BackgroundProperty.Get(nil))
 			w, h := termbox.Size()
 			rootrenderer.RenderChild(body, w, h, 0, 0)
 
