@@ -32,6 +32,12 @@ func (r Renderer) RenderChild(e Element, width, height, xOffset, yOffset int) {
 	fg := ForegroundProperty.Get(e)
 	bg := BackgroundProperty.Get(e)
 
+	for x := xOffset; x < xOffset+width; x++ {
+		for y := yOffset; y < yOffset+height; y++ {
+			r.Set(x, y, ' ')
+		}
+	}
+
 	switch gravity & horizontal {
 	case Left, Left | Right:
 		xOffset += 0
