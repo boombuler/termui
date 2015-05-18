@@ -97,8 +97,33 @@ func (g *Grid) measureColumnAuto(col int) int {
 	width := 0
 
 	for c, p := range g.childPos {
-		if p.Column == col && p.ColumnSpan == 1 {
+		startCol := p.Column
+		endCol := p.Column + p.ColumnSpan
+
+		if col >= startCol && col < endCol {
 			w, _ := c.Measure(0, 0)
+
+			autoCnt := 0
+			isLastAuto := true
+			for c := startCol; c < endCol; c++ {
+				v := g.ColumnDefinitions[c]
+				if v == GridSizeAuto {
+					autoCnt++
+					if c > col {
+						isLastAuto = false
+					}
+				} else if v > GridSizeAuto {
+					w -= v
+				}
+			}
+
+			wauto := w / autoCnt
+			if isLastAuto {
+				w = wauto + (w - (wauto * autoCnt))
+			} else {
+				w = wauto
+			}
+
 			if w > width {
 				width = w
 			}
@@ -111,8 +136,33 @@ func (g *Grid) measureRowAuto(row int) int {
 	height := 0
 
 	for c, p := range g.childPos {
-		if p.Row == row && p.RowSpan == 1 {
+		startRow := p.Row
+		endRow := p.Row + p.RowSpan
+
+		if row >= startRow && row < endRow {
 			_, h := c.Measure(0, 0)
+
+			autoCnt := 0
+			isLastAuto := true
+			for r := startRow; r < endRow; r++ {
+				v := g.RowDefinitions[r]
+				if v == GridSizeAuto {
+					autoCnt++
+					if r > row {
+						isLastAuto = false
+					}
+				} else if v > GridSizeAuto {
+					h -= v
+				}
+			}
+
+			hauto := h / autoCnt
+			if isLastAuto {
+				h = hauto + (h - (hauto * autoCnt))
+			} else {
+				h = hauto
+			}
+
 			if h > height {
 				height = h
 			}
@@ -126,55 +176,77 @@ func (g *Grid) measureGridLengths(availableWidth, availableHeight int) ([]int, [
 	widths := make([]int, len(g.ColumnDefinitions))
 	for col, colW := range g.ColumnDefinitions {
 		if colW > GridSizeAuto {
-			reqWidth += colW
 			widths[col] = colW
 		} else if colW == GridSizeAuto {
 			widths[col] = g.measureColumnAuto(col)
-			reqWidth += widths[col]
 		}
+		reqWidth += widths[col]
 	}
 
 	reqHeight := 0
 	heights := make([]int, len(g.RowDefinitions))
 	for row, rowH := range g.RowDefinitions {
 		if rowH > GridSizeAuto {
-			reqHeight += rowH
 			heights[row] = rowH
 		} else if rowH == GridSizeAuto {
 			heights[row] = g.measureRowAuto(row)
-			reqHeight += heights[row]
 		}
+		reqHeight += heights[row]
 	}
 
 	starWTotal := availableWidth - reqWidth
 	starWTotalCnt := 0
-	for _, colW := range g.ColumnDefinitions {
+	colStarRound := 0
+	colStarRoundVal := 0
+	for col, colW := range g.ColumnDefinitions {
 		if colW < GridSizeAuto {
-			starWTotalCnt += (colW / GridSizeStar)
+			starcnt := (colW / GridSizeStar)
+			starWTotalCnt += starcnt
+			if colStarRoundVal <= starcnt {
+				colStarRoundVal = starcnt
+				colStarRound = col
+			}
 		}
 	}
 
 	if starWTotal > 0 && starWTotalCnt > 0 {
+		oneStarW := starWTotal / starWTotalCnt
+		starRound := starWTotal - (oneStarW * starWTotalCnt)
+
 		for col, colW := range g.ColumnDefinitions {
 			if colW < GridSizeAuto {
-				perc := float64(colW/GridSizeStar) / float64(starWTotalCnt)
-				widths[col] = int(float64(starWTotal) * perc)
+				widths[col] = (colW / GridSizeStar) * oneStarW
+				if col == colStarRound {
+					widths[col] = widths[col] + starRound
+				}
 			}
 		}
 	}
 
 	starHTotal := availableHeight - reqHeight
 	starHTotalCnt := 0
-	for _, rowH := range g.RowDefinitions {
+	rowStarRound := 0
+	rowStarRoundVal := 0
+	for row, rowH := range g.RowDefinitions {
 		if rowH < GridSizeAuto {
-			starHTotalCnt += (rowH / GridSizeStar)
+			starcnt := (rowH / GridSizeStar)
+			starHTotalCnt += starcnt
+			if rowStarRoundVal <= starcnt {
+				rowStarRoundVal = starcnt
+				rowStarRound = row
+			}
 		}
 	}
 	if starHTotal > 0 && starHTotalCnt > 0 {
+		oneStarH := starHTotal / starHTotalCnt
+		starRound := starHTotal - (oneStarH * starHTotalCnt)
+
 		for row, rowH := range g.RowDefinitions {
 			if rowH < GridSizeAuto {
-				perc := float64(rowH/GridSizeStar) / float64(starHTotalCnt)
-				heights[row] = int(float64(starHTotal) * perc)
+				heights[row] = (rowH / GridSizeStar) * oneStarH
+				if row == rowStarRound {
+					heights[row] = heights[row] + starRound
+				}
 			}
 		}
 	}
