@@ -66,7 +66,6 @@ func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange
 				if colHeight > height {
 					height = colHeight
 				}
-				width += colWidth
 				break
 			}
 
@@ -85,6 +84,7 @@ func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange
 			cEnd = cIdx
 			cIdx++
 		}
+		width += colWidth
 
 		if arrange {
 			y := 0
@@ -118,7 +118,6 @@ func (v *WrapPanel) measureHorizontal(availableWidth, availableHeight int, arran
 				if colWidth > width {
 					width = colWidth
 				}
-				height += colHeight
 				break
 			}
 
@@ -137,6 +136,7 @@ func (v *WrapPanel) measureHorizontal(availableWidth, availableHeight int, arran
 			cEnd = cIdx
 			cIdx++
 		}
+		height += colHeight
 
 		if arrange {
 			x := 0
