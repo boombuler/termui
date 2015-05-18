@@ -40,6 +40,15 @@ func (v *WrapPanel) AddChild(e ...Element) {
 	}
 }
 
+// Removes all children.
+func (v *WrapPanel) Clear() {
+	for _, c := range v.children {
+		c.SetParent(nil)
+	}
+	v.childpos = make(map[Element]rect)
+	v.children = nil
+}
+
 func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange bool) (width int, height int) {
 	cIdx := 0
 	width = 0
@@ -53,7 +62,7 @@ func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange
 		for i := cIdx; i < len(v.children); i++ {
 			cw, ch := v.children[i].Measure(0, 0)
 
-			if colHeight+ch > availableHeight {
+			if colHeight+ch > availableHeight && availableHeight != 0 {
 				if colHeight > height {
 					height = colHeight
 				}
@@ -105,7 +114,7 @@ func (v *WrapPanel) measureHorizontal(availableWidth, availableHeight int, arran
 		for i := cIdx; i < len(v.children); i++ {
 			cw, ch := v.children[i].Measure(0, 0)
 
-			if colWidth+cw > availableWidth {
+			if colWidth+cw > availableWidth && availableWidth != 0 {
 				if colWidth > width {
 					width = colWidth
 				}
