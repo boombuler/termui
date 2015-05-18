@@ -53,7 +53,7 @@ func Start(body Element) {
 			close(newBody)
 		}()
 
-		body.Arrange(body.Measure(termbox.Size()))
+		body.Arrange(termbox.Size())
 		for {
 			termbox.Clear(ForegroundProperty.Get(nil), BackgroundProperty.Get(nil))
 			w, h := termbox.Size()
@@ -69,16 +69,16 @@ func Start(body Element) {
 				return
 			case ev := <-eventChan:
 				if ev.Type == termbox.EventResize {
-					body.Arrange(body.Measure(termbox.Size()))
+					body.Arrange(termbox.Size())
 				}
 				if !input.DispatchEvent(ev) {
 					events <- ev
 				}
 			case <-updateChan:
-				body.Arrange(body.Measure(termbox.Size()))
+				body.Arrange(termbox.Size())
 			case nb := <-newBody:
 				body = nb
-				body.Arrange(body.Measure(termbox.Size()))
+				body.Arrange(termbox.Size())
 			}
 
 		}
