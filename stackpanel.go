@@ -77,6 +77,7 @@ func (v *StackPanel) Measure(availableWidth, availableHeight int) (width int, he
 // Arrange sets the final size for the Element end tells it to Arrange itself
 func (v *StackPanel) Arrange(finalWidth, finalHeight int) {
 	v.width, v.height = finalWidth, finalHeight
+	v.Measure(finalWidth, finalHeight)
 
 	for _, child := range v.childs {
 		if v.orientation == Vertical {
