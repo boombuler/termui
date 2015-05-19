@@ -1,5 +1,9 @@
 package termui
 
+import (
+	"github.com/boombuler/termui/css"
+)
+
 // Grid renders its children in a table like layout
 type Grid struct {
 	BaseElement
@@ -71,8 +75,12 @@ func (g *Grid) Name() string {
 }
 
 // Children returns all nested elements.
-func (g *Grid) Children() []Element {
-	return g.children
+func (g *Grid) Children() []css.Styleable {
+	children := make([]css.Styleable, len(g.children))
+	for i, p := range g.children {
+		children[i] = p
+	}
+	return children
 }
 
 func sumIntSlice(v []int) int {

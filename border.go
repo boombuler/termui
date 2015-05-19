@@ -1,5 +1,9 @@
 package termui
 
+import (
+	"github.com/boombuler/termui/css"
+)
+
 // Border draws a border around a given child element
 type Border struct {
 	BaseElement
@@ -21,11 +25,11 @@ func (b *Border) Height() int {
 }
 
 // Children returns all nested child elements of the border.
-func (b *Border) Children() []Element {
+func (b *Border) Children() []css.Styleable {
 	if b.child != nil {
-		return []Element{b.child}
+		return []css.Styleable{b.child}
 	}
-	return []Element{}
+	return []css.Styleable{}
 }
 
 // Name returns the constant name of the border element for css styling.

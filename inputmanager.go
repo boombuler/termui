@@ -22,6 +22,20 @@ func newInputManager(root Element) *intputManager {
 	return im
 }
 
+func (im *intputManager) TrySetFocusTo(fe FocusElement) {
+	if fe == nil {
+		return
+	}
+	for _, e := range im.getFocusableItems() {
+		if e == fe {
+			im.current.SetFocused(false)
+			im.current = fe
+			im.current.SetFocused(true)
+			return
+		}
+	}
+}
+
 func (im *intputManager) getFocusableItems() []FocusElement {
 	itmStack := []Element{im.root}
 	var items []FocusElement
@@ -29,9 +43,12 @@ func (im *intputManager) getFocusableItems() []FocusElement {
 		lastIdx := len(itmStack) - 1
 		cur := itmStack[lastIdx]
 		childs := cur.Children()
-		revChilds := make([]Element, len(childs))
-		for i, c := range childs {
-			revChilds[len(childs)-i-1] = c
+		revChilds := make([]Element, 0)
+		for _, c := range childs {
+			el, ok := c.(Element)
+			if ok {
+				revChilds = append([]Element{el}, revChilds...)
+			}
 		}
 
 		if fcur, ok := cur.(FocusElement); ok {
@@ -66,9 +83,19 @@ func (im *intputManager) Next() {
 
 func (im *intputManager) DispatchEvent(e termbox.Event) bool {
 	if e.Type == termbox.EventKey {
-		if im.current != nil {
-			if im.current.HandleKey(e.Key, e.Ch) {
+		var kh KeyHandler = im.current
+		for kh != nil {
+			if kh.HandleKey(e.Key, e.Ch) {
 				return true
+			}
+			p, ok := kh.Parent().(Element)
+			kh = nil
+			for p != nil && ok {
+				if k, ok := p.(KeyHandler); ok {
+					kh = k
+					break
+				}
+				p, ok = p.Parent().(Element)
 			}
 		}
 		if e.Key == termbox.KeyTab {

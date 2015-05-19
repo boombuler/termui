@@ -3,7 +3,7 @@
 */
 package parser
 
-const numNTSymbols = 21
+const numNTSymbols = 22
 type(
 	gotoTable [numStates]gotoRow
 	gotoRow	[numNTSymbols] int
@@ -28,6 +28,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -54,6 +55,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -80,6 +82,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -106,6 +109,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -132,6 +136,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -158,6 +163,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -184,6 +190,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		23, // Plus
 		22, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -210,6 +217,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -236,6 +244,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -262,6 +271,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -279,7 +289,7 @@ var gotoTab = gotoTable{
 		-1, // SelectorWS
 		-1, // Selector
 		-1, // SimpleSelector
-		26, // AttrSelectors
+		28, // AttrSelectors
 		12, // AttrSelector
 		-1, // NamedSelector
 		-1, // ChildSelector
@@ -288,6 +298,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -314,6 +325,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -331,7 +343,7 @@ var gotoTab = gotoTable{
 		-1, // SelectorWS
 		-1, // Selector
 		-1, // SimpleSelector
-		27, // AttrSelectors
+		29, // AttrSelectors
 		12, // AttrSelector
 		-1, // NamedSelector
 		-1, // ChildSelector
@@ -340,6 +352,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -366,6 +379,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -392,6 +406,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -418,6 +433,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -444,6 +460,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -470,6 +487,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -496,6 +514,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -522,6 +541,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -548,6 +568,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -571,9 +592,10 @@ var gotoTab = gotoTable{
 		-1, // ChildSelector
 		-1, // Value
 		-1, // Values
-		32, // Properties
-		35, // Propertyname
-		34, // Property
+		34, // Properties
+		37, // Propertyname
+		36, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -590,7 +612,7 @@ var gotoTab = gotoTable{
 		-1, // Rule
 		-1, // SelectorWS
 		-1, // Selector
-		37, // SimpleSelector
+		39, // SimpleSelector
 		11, // AttrSelectors
 		12, // AttrSelector
 		10, // NamedSelector
@@ -600,6 +622,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -616,16 +639,17 @@ var gotoTab = gotoTable{
 		-1, // Rule
 		-1, // SelectorWS
 		-1, // Selector
-		-1, // SimpleSelector
-		-1, // AttrSelectors
-		-1, // AttrSelector
-		-1, // NamedSelector
+		41, // SimpleSelector
+		11, // AttrSelectors
+		12, // AttrSelector
+		10, // NamedSelector
 		-1, // ChildSelector
 		-1, // Value
 		-1, // Values
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -652,6 +676,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -668,16 +693,17 @@ var gotoTab = gotoTable{
 		-1, // Rule
 		-1, // SelectorWS
 		-1, // Selector
-		38, // SimpleSelector
-		11, // AttrSelectors
-		12, // AttrSelector
-		10, // NamedSelector
+		-1, // SimpleSelector
+		-1, // AttrSelectors
+		-1, // AttrSelector
+		-1, // NamedSelector
 		-1, // ChildSelector
 		-1, // Value
 		-1, // Values
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -704,6 +730,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -720,16 +747,17 @@ var gotoTab = gotoTable{
 		-1, // Rule
 		-1, // SelectorWS
 		-1, // Selector
-		-1, // SimpleSelector
-		-1, // AttrSelectors
-		-1, // AttrSelector
-		-1, // NamedSelector
+		42, // SimpleSelector
+		11, // AttrSelectors
+		12, // AttrSelector
+		10, // NamedSelector
 		-1, // ChildSelector
 		-1, // Value
 		-1, // Values
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -756,6 +784,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -782,6 +811,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -808,6 +838,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -834,6 +865,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -860,11 +892,12 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
 		-1, // CBOpen
-		39, // CBClose
+		-1, // CBClose
 		
 
 	},
@@ -886,6 +919,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -909,14 +943,15 @@ var gotoTab = gotoTable{
 		-1, // ChildSelector
 		-1, // Value
 		-1, // Values
-		43, // Properties
-		35, // Propertyname
-		34, // Property
+		-1, // Properties
+		-1, // Propertyname
+		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
 		-1, // CBOpen
-		-1, // CBClose
+		43, // CBClose
 		
 
 	},
@@ -933,11 +968,12 @@ var gotoTab = gotoTable{
 		-1, // AttrSelector
 		-1, // NamedSelector
 		-1, // ChildSelector
-		46, // Value
-		49, // Values
+		-1, // Value
+		-1, // Values
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -961,9 +997,10 @@ var gotoTab = gotoTable{
 		-1, // ChildSelector
 		-1, // Value
 		-1, // Values
-		-1, // Properties
-		-1, // Propertyname
-		-1, // Property
+		47, // Properties
+		37, // Propertyname
+		36, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -985,11 +1022,12 @@ var gotoTab = gotoTable{
 		-1, // AttrSelector
 		-1, // NamedSelector
 		-1, // ChildSelector
-		-1, // Value
-		-1, // Values
+		50, // Value
+		53, // Values
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1016,6 +1054,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1042,6 +1081,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1068,6 +1108,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1094,6 +1135,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1120,6 +1162,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1146,6 +1189,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1172,6 +1216,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1198,6 +1243,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1224,9 +1270,10 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
-		53, // Pipe
+		-1, // Pipe
 		-1, // CBOpen
 		-1, // CBClose
 		
@@ -1250,6 +1297,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1276,6 +1324,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1302,8 +1351,9 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
-		55, // Semicolon
+		-1, // Semicolon
 		-1, // Pipe
 		-1, // CBOpen
 		-1, // CBClose
@@ -1328,9 +1378,10 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
-		-1, // Pipe
+		57, // Pipe
 		-1, // CBOpen
 		-1, // CBClose
 		
@@ -1354,6 +1405,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1380,6 +1432,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1401,13 +1454,14 @@ var gotoTab = gotoTable{
 		-1, // AttrSelector
 		-1, // NamedSelector
 		-1, // ChildSelector
-		46, // Value
-		58, // Values
+		-1, // Value
+		-1, // Values
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
-		-1, // Semicolon
+		59, // Semicolon
 		-1, // Pipe
 		-1, // CBOpen
 		-1, // CBClose
@@ -1432,6 +1486,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1458,6 +1513,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1484,6 +1540,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1505,11 +1562,12 @@ var gotoTab = gotoTable{
 		-1, // AttrSelector
 		-1, // NamedSelector
 		-1, // ChildSelector
-		-1, // Value
-		-1, // Values
+		50, // Value
+		62, // Values
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1536,6 +1594,7 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe
@@ -1562,6 +1621,115 @@ var gotoTab = gotoTable{
 		-1, // Properties
 		-1, // Propertyname
 		-1, // Property
+		-1, // Plus
+		-1, // Gt
+		-1, // Semicolon
+		-1, // Pipe
+		-1, // CBOpen
+		-1, // CBClose
+		
+
+	},
+	gotoRow{ // S60
+		
+		-1, // S'
+		-1, // CSS
+		-1, // Rules
+		-1, // Rule
+		-1, // SelectorWS
+		-1, // Selector
+		-1, // SimpleSelector
+		-1, // AttrSelectors
+		-1, // AttrSelector
+		-1, // NamedSelector
+		-1, // ChildSelector
+		-1, // Value
+		-1, // Values
+		-1, // Properties
+		-1, // Propertyname
+		-1, // Property
+		-1, // Plus
+		-1, // Gt
+		-1, // Semicolon
+		-1, // Pipe
+		-1, // CBOpen
+		-1, // CBClose
+		
+
+	},
+	gotoRow{ // S61
+		
+		-1, // S'
+		-1, // CSS
+		-1, // Rules
+		-1, // Rule
+		-1, // SelectorWS
+		-1, // Selector
+		-1, // SimpleSelector
+		-1, // AttrSelectors
+		-1, // AttrSelector
+		-1, // NamedSelector
+		-1, // ChildSelector
+		-1, // Value
+		-1, // Values
+		-1, // Properties
+		-1, // Propertyname
+		-1, // Property
+		-1, // Plus
+		-1, // Gt
+		-1, // Semicolon
+		-1, // Pipe
+		-1, // CBOpen
+		-1, // CBClose
+		
+
+	},
+	gotoRow{ // S62
+		
+		-1, // S'
+		-1, // CSS
+		-1, // Rules
+		-1, // Rule
+		-1, // SelectorWS
+		-1, // Selector
+		-1, // SimpleSelector
+		-1, // AttrSelectors
+		-1, // AttrSelector
+		-1, // NamedSelector
+		-1, // ChildSelector
+		-1, // Value
+		-1, // Values
+		-1, // Properties
+		-1, // Propertyname
+		-1, // Property
+		-1, // Plus
+		-1, // Gt
+		-1, // Semicolon
+		-1, // Pipe
+		-1, // CBOpen
+		-1, // CBClose
+		
+
+	},
+	gotoRow{ // S63
+		
+		-1, // S'
+		-1, // CSS
+		-1, // Rules
+		-1, // Rule
+		-1, // SelectorWS
+		-1, // Selector
+		-1, // SimpleSelector
+		-1, // AttrSelectors
+		-1, // AttrSelector
+		-1, // NamedSelector
+		-1, // ChildSelector
+		-1, // Value
+		-1, // Values
+		-1, // Properties
+		-1, // Propertyname
+		-1, // Property
+		-1, // Plus
 		-1, // Gt
 		-1, // Semicolon
 		-1, // Pipe

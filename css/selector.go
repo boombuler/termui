@@ -65,12 +65,7 @@ func (cs ClassSelector) Matches(s Styleable) bool {
 	if s == nil {
 		return false
 	}
-	for _, class := range s.Classes() {
-		if class == string(cs) {
-			return true
-		}
-	}
-	return false
+	return s.HasClass(string(cs))
 }
 
 func (cs ClassSelector) weight() selectorWeight {
@@ -171,4 +166,28 @@ func (as AndSelector) weight() selectorWeight {
 	}
 
 	return sum
+}
+
+type AfterSelector struct {
+	Before, After Selector
+}
+
+// Matches returns true if the selector matches the styleable element.
+func (as AfterSelector) Matches(s Styleable) bool {
+	if as.After.Matches(s) {
+		p := s.Parent()
+		if p != nil {
+			items := p.Children()
+			for i := 1; i < len(items); i++ {
+				if items[i] == s {
+					return as.Before.Matches(items[i-1])
+				}
+			}
+		}
+	}
+	return false
+}
+
+func (as AfterSelector) weight() selectorWeight {
+	return as.After.weight().Add(as.Before.weight())
 }

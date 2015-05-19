@@ -1,6 +1,7 @@
 package termui
 
 import (
+	"github.com/boombuler/termui/css"
 	"github.com/nsf/termbox-go"
 	"time"
 	"unicode/utf8"
@@ -90,8 +91,8 @@ func (tb *TextBox) Arrange(finalWidth, finalHeight int) {
 }
 
 // Children returns all nested elements.
-func (tb *TextBox) Children() []Element {
-	return []Element{}
+func (tb *TextBox) Children() []css.Styleable {
+	return nil
 }
 
 // Height returns the height of the textbox.

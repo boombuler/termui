@@ -1,11 +1,15 @@
 package termui
 
+import (
+	"github.com/boombuler/termui/css"
+)
+
 type WrapPanel struct {
 	BaseElement
+	children *ElementCollection
 
 	width, height int
 	orientation   Orientation
-	children      []Element
 	childpos      map[Element]rect
 }
 
@@ -16,10 +20,40 @@ type rect struct {
 var _ Element = new(WrapPanel)
 
 func NewWrapPanel(o Orientation) *WrapPanel {
-	return &WrapPanel{
+	wp := &WrapPanel{
 		orientation: o,
+		children:    new(ElementCollection),
 		childpos:    make(map[Element]rect),
 	}
+	return wp
+}
+
+func (v *WrapPanel) Add(e ...Element) {
+	v.children.Add(e...)
+	for _, el := range e {
+		el.SetParent(v)
+	}
+}
+
+func (v *WrapPanel) Remove(e Element) {
+	idx := v.children.IndexOf(e)
+	if idx != -1 {
+		e.SetParent(nil)
+		v.children.RemoveAt(idx)
+	}
+}
+
+func (v *WrapPanel) Clear() {
+	for _, el := range v.children.Items() {
+		el.SetParent(nil)
+		delete(v.childpos, el)
+	}
+
+	v.children.Clear()
+}
+
+func (v *WrapPanel) Len() int {
+	return v.children.Len()
 }
 
 // Name returns the constant name of the WrapPanel for css styling.
@@ -28,39 +62,27 @@ func (v *WrapPanel) Name() string {
 }
 
 // Children returns all nested elements.
-func (v *WrapPanel) Children() []Element {
-	return v.children
-}
-
-// AddChild adds the given children to the WrapPanel
-func (v *WrapPanel) AddChild(e ...Element) {
-	v.children = append(v.children, e...)
-	for _, c := range e {
-		c.SetParent(v)
+func (v *WrapPanel) Children() []css.Styleable {
+	res := make([]css.Styleable, v.Len())
+	for i := 0; i < v.Len(); i++ {
+		res[i] = v.children.At(i)
 	}
-}
-
-// Removes all children.
-func (v *WrapPanel) Clear() {
-	for _, c := range v.children {
-		c.SetParent(nil)
-	}
-	v.childpos = make(map[Element]rect)
-	v.children = nil
+	return res
 }
 
 func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange bool) (width int, height int) {
 	cIdx := 0
 	width = 0
 	height = 0
-	for cIdx < len(v.children) {
+	for cIdx < v.Len() {
 		colWidth := 0
 		colHeight := 0
 		cStart := cIdx
 		cEnd := cIdx
 
-		for i := cIdx; i < len(v.children); i++ {
-			cw, ch := v.children[i].Measure(0, 0)
+		for i := cIdx; i < v.Len(); i++ {
+			child := v.children.At(i)
+			cw, ch := child.Measure(0, 0)
 
 			if colHeight+ch > availableHeight && availableHeight != 0 {
 				if colHeight > height {
@@ -70,7 +92,7 @@ func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange
 			}
 
 			if arrange {
-				v.childpos[v.children[i]] = rect{
+				v.childpos[child] = rect{
 					x:      width,
 					width:  cw,
 					height: ch,
@@ -89,7 +111,7 @@ func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange
 		if arrange {
 			y := 0
 			for i := cStart; i <= cEnd; i++ {
-				child := v.children[i]
+				child := v.children.At(i)
 				rect := v.childpos[child]
 				child.Arrange(rect.width, rect.height)
 				rect.y = y
@@ -105,14 +127,15 @@ func (v *WrapPanel) measureHorizontal(availableWidth, availableHeight int, arran
 	cIdx := 0
 	width = 0
 	height = 0
-	for cIdx < len(v.children) {
+	for cIdx < v.Len() {
 		colWidth := 0
 		colHeight := 0
 		cStart := cIdx
 		cEnd := cIdx
 
-		for i := cIdx; i < len(v.children); i++ {
-			cw, ch := v.children[i].Measure(0, 0)
+		for i := cIdx; i < v.Len(); i++ {
+			child := v.children.At(i)
+			cw, ch := child.Measure(0, 0)
 
 			if colWidth+cw > availableWidth && availableWidth != 0 {
 				if colWidth > width {
@@ -122,7 +145,7 @@ func (v *WrapPanel) measureHorizontal(availableWidth, availableHeight int, arran
 			}
 
 			if arrange {
-				v.childpos[v.children[i]] = rect{
+				v.childpos[child] = rect{
 					y:      height,
 					width:  cw,
 					height: ch,
@@ -141,7 +164,7 @@ func (v *WrapPanel) measureHorizontal(availableWidth, availableHeight int, arran
 		if arrange {
 			x := 0
 			for i := cStart; i <= cEnd; i++ {
-				child := v.children[i]
+				child := v.children.At(i)
 				rect := v.childpos[child]
 				child.Arrange(rect.width, rect.height)
 				rect.x = x

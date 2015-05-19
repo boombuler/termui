@@ -38,20 +38,22 @@ type Element interface {
 	// Height returns the height of the element
 	Height() int
 
-	// Children returns all nested child elements of the element
-	Children() []Element
 	// SetParent sets the parent element of this element
 	SetParent(e Element)
 }
 
-// FocusElement is an element which can get the input focus.
-type FocusElement interface {
+type KeyHandler interface {
 	Element
-	// SetFocused is called by the ui system to indicate that the element has the focus.
-	SetFocused(v bool)
 	// HandleKey is called by the ui system if the element is asked to process a key. It should return true if the key
 	// was successfully handled and should not be processed by other elements.
 	HandleKey(k termbox.Key, ch rune) bool
+}
+
+// FocusElement is an element which can get the input focus.
+type FocusElement interface {
+	KeyHandler
+	// SetFocused is called by the ui system to indicate that the element has the focus.
+	SetFocused(v bool)
 }
 
 // BaseElement helps implementing the Element interface for ui elements. It handles classes, the ID and also the parent element.

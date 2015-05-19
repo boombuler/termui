@@ -105,6 +105,8 @@ func selectorToStr(sel css.Selector) string {
 			return fmt.Sprintf("css.PseudoClassSelector(\"%v\")", string(s))
 		case css.AnyParentSelector:
 			return fmt.Sprintf("css.AnyParentSelector{%v, %v}", selectorToStr(s.Parent), selectorToStr(s.Child))
+		case css.AfterSelector:
+			return fmt.Sprintf("css.AfterSelector{%v, %v}", selectorToStr(s.Before), selectorToStr(s.After))
 		case css.AndSelector:
 			if len(s) == 1 {
 				return selectorToStr(s[0])

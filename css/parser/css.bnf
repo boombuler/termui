@@ -52,6 +52,7 @@ NamedSelector    : id                                             <<css.NameSele
 
 ChildSelector    : SelectorWS Gt SimpleSelector                   <<css.ParentSelector{$0.(css.Selector), $2.(css.Selector)}, nil>>
                  | Selector ws SimpleSelector                     <<css.AnyParentSelector{$0.(css.Selector), $2.(css.Selector)}, nil>>
+                 | SelectorWS Plus SimpleSelector                 <<css.AfterSelector{$0.(css.Selector), $2.(css.Selector)}, nil>>
                  ;
 
 
@@ -75,6 +76,9 @@ Propertyname     : Propertyname ws                                 <<$0, nil>>
 Property         : Propertyname Values Semicolon                   << internal.PropertyValue { $0.(string), $1 }, nil >>
                  ;
 
+Plus             : Plus ws
+                 | "+"
+                 ;
 Gt               : Gt ws
                  | ">"
                  ;

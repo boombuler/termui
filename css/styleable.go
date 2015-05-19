@@ -7,12 +7,14 @@ type Styleable interface {
 	// Name returns the name of the element.
 	Name() string
 	// Classes returns all classes of the element.
-	Classes() []string
+	HasClass(c string) bool
 	// ElementStyle returns style values which are directly bound this an instance
 	ElementStyle() Style
 
 	// Parent returns the styleable parent of the element or nil if it has no parent.
 	Parent() Styleable
+
+	Children() []Styleable
 }
 
 // ClassMap is a helper to manage classes for elements.
@@ -28,13 +30,10 @@ func (cm ClassMap) Remove(s string) {
 	delete(cm, s)
 }
 
-// Classes returns a all currently set classes.
-func (cm ClassMap) Classes() []string {
-	res := make([]string, 0, len(cm))
-	for k := range cm {
-		res = append(res, k)
-	}
-	return res
+// HasClass checks if the styleable has a specific class
+func (cm ClassMap) HasClass(c string) bool {
+	_, ok := cm[c]
+	return ok
 }
 
 // IDAndClasses is a helper for implementing simple parts of the Styleable interface.
@@ -75,9 +74,9 @@ func (s *IDAndClasses) RemoveClass(name string) {
 	}
 }
 
-// Classes returns all classes of the element.
-func (s *IDAndClasses) Classes() []string {
-	return s.classes.Classes()
+// HasClass checks if the styleable has a specific class
+func (s *IDAndClasses) HasClass(c string) bool {
+	return s.classes.HasClass(c)
 }
 
 // SetID sets the hopefully unique id of the element.

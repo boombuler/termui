@@ -1,6 +1,7 @@
 package termui
 
 import (
+	"github.com/boombuler/termui/css"
 	"github.com/nsf/termbox-go"
 	"sync"
 )
@@ -9,6 +10,7 @@ var (
 	quitChan   chan struct{}
 	updateChan chan struct{}
 	newBody    chan Element
+	setFocus   chan FocusElement
 	wgexit     *sync.WaitGroup
 	// Events can be used to recieve unhandled termbox events.
 	Events <-chan termbox.Event
@@ -23,6 +25,7 @@ func Start(body Element) {
 	updateChan = make(chan struct{})
 	quitChan = make(chan struct{})
 	newBody = make(chan Element)
+	setFocus = make(chan FocusElement)
 	go func() {
 	loop:
 		for {
@@ -51,10 +54,13 @@ func Start(body Element) {
 			close(eventChan)
 			close(updateChan)
 			close(newBody)
+			close(setFocus)
+			css.ClearCache()
 		}()
 
 		body.Arrange(termbox.Size())
 		for {
+			css.ClearCache()
 			termbox.Clear(ForegroundProperty.Get(nil), BackgroundProperty.Get(nil))
 			w, h := termbox.Size()
 			rootrenderer.RenderChild(body, w, h, 0, 0)
@@ -78,10 +84,19 @@ func Start(body Element) {
 				body.Arrange(termbox.Size())
 			case nb := <-newBody:
 				body = nb
+				input = newInputManager(body)
+				body.Arrange(termbox.Size())
+			case fe := <-setFocus:
+				input.TrySetFocusTo(fe)
 				body.Arrange(termbox.Size())
 			}
-
 		}
+	}()
+}
+
+func SetFocus(e FocusElement) {
+	go func() {
+		setFocus <- e
 	}()
 }
 

@@ -1,5 +1,9 @@
 package termui
 
+import (
+	"github.com/boombuler/termui/css"
+)
+
 type Orientation int
 
 const (
@@ -35,8 +39,12 @@ func (v *StackPanel) Name() string {
 }
 
 // Children returns all nested elements.
-func (v *StackPanel) Children() []Element {
-	return v.childs
+func (v *StackPanel) Children() []css.Styleable {
+	res := make([]css.Styleable, len(v.childs))
+	for i, c := range v.childs {
+		res[i] = c
+	}
+	return res
 }
 
 // AddChild adds the given children to the StackPanel

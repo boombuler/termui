@@ -251,10 +251,20 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
+		String: `ChildSelector : SelectorWS Plus SimpleSelector	<< css.AfterSelector{X[0].(css.Selector), X[2].(css.Selector)}, nil >>`,
+		Id: "ChildSelector",
+		NTType: 10,
+		Index: 23,
+		NumSymbols: 3,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return css.AfterSelector{X[0].(css.Selector), X[2].(css.Selector)}, nil
+		},
+	},
+	ProdTabEntry{
 		String: `Value : Value ws	<< X[0], nil >>`,
 		Id: "Value",
 		NTType: 11,
-		Index: 23,
+		Index: 24,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -264,7 +274,7 @@ var productionsTable = ProdTab {
 		String: `Value : id	<< str(X[0]), nil >>`,
 		Id: "Value",
 		NTType: 11,
-		Index: 24,
+		Index: 25,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return str(X[0]), nil
@@ -274,7 +284,7 @@ var productionsTable = ProdTab {
 		String: `Value : int	<< str(X[0]), nil >>`,
 		Id: "Value",
 		NTType: 11,
-		Index: 25,
+		Index: 26,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return str(X[0]), nil
@@ -284,7 +294,7 @@ var productionsTable = ProdTab {
 		String: `Value : float	<< str(X[0]), nil >>`,
 		Id: "Value",
 		NTType: 11,
-		Index: 26,
+		Index: 27,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return str(X[0]), nil
@@ -294,7 +304,7 @@ var productionsTable = ProdTab {
 		String: `Values : Value Pipe Values	<< append(X[2].([]string), X[0].(string)), nil >>`,
 		Id: "Values",
 		NTType: 12,
-		Index: 27,
+		Index: 28,
 		NumSymbols: 3,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return append(X[2].([]string), X[0].(string)), nil
@@ -304,7 +314,7 @@ var productionsTable = ProdTab {
 		String: `Values : Value	<< []string{X[0].(string)}, nil >>`,
 		Id: "Values",
 		NTType: 12,
-		Index: 28,
+		Index: 29,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return []string{X[0].(string)}, nil
@@ -314,7 +324,7 @@ var productionsTable = ProdTab {
 		String: `Properties : Property Properties	<< append(X[1].(internal.PropertyValues), X[0].(internal.PropertyValue)), nil >>`,
 		Id: "Properties",
 		NTType: 13,
-		Index: 29,
+		Index: 30,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return append(X[1].(internal.PropertyValues), X[0].(internal.PropertyValue)), nil
@@ -324,7 +334,7 @@ var productionsTable = ProdTab {
 		String: `Properties : Property	<< internal.PropertyValues{X[0].(internal.PropertyValue)}, nil >>`,
 		Id: "Properties",
 		NTType: 13,
-		Index: 30,
+		Index: 31,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return internal.PropertyValues{X[0].(internal.PropertyValue)}, nil
@@ -334,7 +344,7 @@ var productionsTable = ProdTab {
 		String: `Propertyname : Propertyname ws	<< X[0], nil >>`,
 		Id: "Propertyname",
 		NTType: 14,
-		Index: 31,
+		Index: 32,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -344,7 +354,7 @@ var productionsTable = ProdTab {
 		String: `Propertyname : id ws ":"	<< str(X[0]), nil >>`,
 		Id: "Propertyname",
 		NTType: 14,
-		Index: 32,
+		Index: 33,
 		NumSymbols: 3,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return str(X[0]), nil
@@ -354,7 +364,7 @@ var productionsTable = ProdTab {
 		String: `Propertyname : id ":"	<< str(X[0]), nil >>`,
 		Id: "Propertyname",
 		NTType: 14,
-		Index: 33,
+		Index: 34,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return str(X[0]), nil
@@ -364,17 +374,37 @@ var productionsTable = ProdTab {
 		String: `Property : Propertyname Values Semicolon	<< internal.PropertyValue { X[0].(string), X[1] }, nil >>`,
 		Id: "Property",
 		NTType: 15,
-		Index: 34,
+		Index: 35,
 		NumSymbols: 3,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return internal.PropertyValue { X[0].(string), X[1] }, nil
 		},
 	},
 	ProdTabEntry{
+		String: `Plus : Plus ws	<<  >>`,
+		Id: "Plus",
+		NTType: 16,
+		Index: 36,
+		NumSymbols: 2,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
+		String: `Plus : "+"	<<  >>`,
+		Id: "Plus",
+		NTType: 16,
+		Index: 37,
+		NumSymbols: 1,
+		ReduceFunc: func(X []Attrib) (Attrib, error) {
+			return X[0], nil
+		},
+	},
+	ProdTabEntry{
 		String: `Gt : Gt ws	<<  >>`,
 		Id: "Gt",
-		NTType: 16,
-		Index: 35,
+		NTType: 17,
+		Index: 38,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -383,8 +413,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `Gt : ">"	<<  >>`,
 		Id: "Gt",
-		NTType: 16,
-		Index: 36,
+		NTType: 17,
+		Index: 39,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -393,8 +423,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `Semicolon : Semicolon ws	<<  >>`,
 		Id: "Semicolon",
-		NTType: 17,
-		Index: 37,
+		NTType: 18,
+		Index: 40,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -403,8 +433,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `Semicolon : ";"	<<  >>`,
 		Id: "Semicolon",
-		NTType: 17,
-		Index: 38,
+		NTType: 18,
+		Index: 41,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -413,8 +443,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `Pipe : Pipe ws	<<  >>`,
 		Id: "Pipe",
-		NTType: 18,
-		Index: 39,
+		NTType: 19,
+		Index: 42,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -423,8 +453,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `Pipe : "|"	<<  >>`,
 		Id: "Pipe",
-		NTType: 18,
-		Index: 40,
+		NTType: 19,
+		Index: 43,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -433,8 +463,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `CBOpen : CBOpen ws	<<  >>`,
 		Id: "CBOpen",
-		NTType: 19,
-		Index: 41,
+		NTType: 20,
+		Index: 44,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -443,8 +473,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `CBOpen : "{"	<<  >>`,
 		Id: "CBOpen",
-		NTType: 19,
-		Index: 42,
+		NTType: 20,
+		Index: 45,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -453,8 +483,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `CBClose : CBClose ws	<<  >>`,
 		Id: "CBClose",
-		NTType: 20,
-		Index: 43,
+		NTType: 21,
+		Index: 46,
 		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil
@@ -463,8 +493,8 @@ var productionsTable = ProdTab {
 	ProdTabEntry{
 		String: `CBClose : "}"	<<  >>`,
 		Id: "CBClose",
-		NTType: 20,
-		Index: 44,
+		NTType: 21,
+		Index: 47,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil

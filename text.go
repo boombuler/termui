@@ -1,5 +1,9 @@
 package termui
 
+import (
+	"github.com/boombuler/termui/css"
+)
+
 const dot = '…'
 
 // Text is an element which simply draws a static text.
@@ -30,8 +34,8 @@ func (t *Text) Height() int {
 }
 
 // Children returns all nested elements.
-func (t *Text) Children() []Element {
-	return []Element{}
+func (t *Text) Children() []css.Styleable {
+	return nil
 }
 
 // Measure gets the "wanted" size of the element based on the available size
