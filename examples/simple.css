@@ -5,7 +5,7 @@ body {
 
 border {
     background: red;
-    gravity: left | right ;
+    gravity: left right ;
 }
 
 border >border {

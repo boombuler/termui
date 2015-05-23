@@ -62,7 +62,7 @@ func (v *StackPanel) Measure(availableWidth, availableHeight int) (width int, he
 	v.widths = make(map[Element]int)
 	for _, child := range v.childs {
 		if v.orientation == Vertical {
-			cw, ch := child.Measure(availableWidth, availableHeight-height)
+			cw, ch := MeasureChild(child, availableWidth, availableHeight-height)
 			if cw > width {
 				width = cw
 			}
@@ -70,7 +70,7 @@ func (v *StackPanel) Measure(availableWidth, availableHeight int) (width int, he
 			v.heights[child] = ch
 			v.widths[child] = cw
 		} else {
-			cw, ch := child.Measure(availableWidth-width, availableHeight)
+			cw, ch := MeasureChild(child, availableWidth-width, availableHeight)
 			if ch > height {
 				height = ch
 			}
@@ -101,7 +101,7 @@ func (v *StackPanel) Arrange(finalWidth, finalHeight int) {
 				cw = finalWidth
 			}
 
-			child.Arrange(cw, ch)
+			ArrangeChild(child, cw, ch)
 			finalHeight -= ch
 		} else {
 			cw, ok := v.widths[child]
@@ -116,7 +116,7 @@ func (v *StackPanel) Arrange(finalWidth, finalHeight int) {
 				cw = finalHeight
 			}
 
-			child.Arrange(cw, ch)
+			ArrangeChild(child, cw, ch)
 			finalWidth -= cw
 		}
 	}
@@ -130,14 +130,14 @@ func (v *StackPanel) Render(rn Renderer) {
 			if off >= v.height {
 				break
 			}
-			height := child.Height()
+			height := v.heights[child]
 			rn.RenderChild(child, v.width, height, 0, off)
 			off += height
 		} else {
 			if off >= v.width {
 				break
 			}
-			width := child.Width()
+			width := v.widths[child]
 			rn.RenderChild(child, width, v.height, off, 0)
 			off += width
 		}

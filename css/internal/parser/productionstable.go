@@ -301,13 +301,13 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `Values : Value Pipe Values	<< append(X[2].([]string), X[0].(string)), nil >>`,
+		String: `Values : Value Values	<< append([]string{X[0].(string)}, X[1].([]string)...), nil >>`,
 		Id: "Values",
 		NTType: 12,
 		Index: 28,
-		NumSymbols: 3,
+		NumSymbols: 2,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return append(X[2].([]string), X[0].(string)), nil
+			return append([]string{X[0].(string)}, X[1].([]string)...), nil
 		},
 	},
 	ProdTabEntry{
@@ -441,8 +441,8 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `Pipe : Pipe ws	<<  >>`,
-		Id: "Pipe",
+		String: `CBOpen : CBOpen ws	<<  >>`,
+		Id: "CBOpen",
 		NTType: 19,
 		Index: 42,
 		NumSymbols: 2,
@@ -451,8 +451,8 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `Pipe : "|"	<<  >>`,
-		Id: "Pipe",
+		String: `CBOpen : "{"	<<  >>`,
+		Id: "CBOpen",
 		NTType: 19,
 		Index: 43,
 		NumSymbols: 1,
@@ -461,8 +461,8 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `CBOpen : CBOpen ws	<<  >>`,
-		Id: "CBOpen",
+		String: `CBClose : CBClose ws	<<  >>`,
+		Id: "CBClose",
 		NTType: 20,
 		Index: 44,
 		NumSymbols: 2,
@@ -471,30 +471,10 @@ var productionsTable = ProdTab {
 		},
 	},
 	ProdTabEntry{
-		String: `CBOpen : "{"	<<  >>`,
-		Id: "CBOpen",
-		NTType: 20,
-		Index: 45,
-		NumSymbols: 1,
-		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
-		},
-	},
-	ProdTabEntry{
-		String: `CBClose : CBClose ws	<<  >>`,
-		Id: "CBClose",
-		NTType: 21,
-		Index: 46,
-		NumSymbols: 2,
-		ReduceFunc: func(X []Attrib) (Attrib, error) {
-			return X[0], nil
-		},
-	},
-	ProdTabEntry{
 		String: `CBClose : "}"	<<  >>`,
 		Id: "CBClose",
-		NTType: 21,
-		Index: 47,
+		NTType: 20,
+		Index: 45,
 		NumSymbols: 1,
 		ReduceFunc: func(X []Attrib) (Attrib, error) {
 			return X[0], nil

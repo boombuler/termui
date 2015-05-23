@@ -43,7 +43,7 @@ func (b *Border) Measure(availableWidth, availableHeight int) (width int, height
 		return 2, 2
 	}
 
-	cw, ch := b.child.Measure(availableWidth-2, availableHeight-2)
+	cw, ch := MeasureChild(b.child, availableWidth-2, availableHeight-2)
 	grav := GravityProperty.Get(b)
 	if grav&horizontal == horizontal && availableWidth > 0 { // stretch
 		width = availableWidth
@@ -61,7 +61,7 @@ func (b *Border) Measure(availableWidth, availableHeight int) (width int, height
 // Arrange sets the final size for the Element end tells it to Arrange itself
 func (b *Border) Arrange(finalWidth, finalHeight int) {
 	if finalWidth > 2 && finalHeight > 2 && b.child != nil {
-		b.child.Arrange(finalWidth-2, finalHeight-2)
+		ArrangeChild(b.child, finalWidth-2, finalHeight-2)
 	}
 	b.width, b.height = finalWidth, finalHeight
 }

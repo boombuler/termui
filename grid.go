@@ -109,7 +109,7 @@ func (g *Grid) measureColumnAuto(col int) int {
 		endCol := p.Column + p.ColumnSpan
 
 		if col >= startCol && col < endCol {
-			w, _ := c.Measure(0, 0)
+			w, _ := MeasureChild(c, 0, 0)
 
 			autoCnt := 0
 			isLastAuto := true
@@ -148,7 +148,7 @@ func (g *Grid) measureRowAuto(row int) int {
 		endRow := p.Row + p.RowSpan
 
 		if row >= startRow && row < endRow {
-			_, h := c.Measure(0, 0)
+			_, h := MeasureChild(c, 0, 0)
 
 			autoCnt := 0
 			isLastAuto := true
@@ -265,7 +265,7 @@ func (g *Grid) measureGridLengths(availableWidth, availableHeight int) ([]int, [
 func (g *Grid) Measure(availableWidth, availableHeight int) (width int, height int) {
 	widths, heights := g.measureGridLengths(availableWidth, availableHeight)
 	for child, pos := range g.childPos {
-		child.Measure(
+		MeasureChild(child,
 			sumIntSlice(widths[pos.Column:pos.Column+pos.ColumnSpan]),
 			sumIntSlice(heights[pos.Row:pos.Row+pos.RowSpan]))
 	}
@@ -276,7 +276,7 @@ func (g *Grid) Measure(availableWidth, availableHeight int) (width int, height i
 func (g *Grid) Arrange(finalWidth, finalHeight int) {
 	g.colWidths, g.rowHeights = g.measureGridLengths(finalWidth, finalHeight)
 	for c, p := range g.childPos {
-		c.Arrange(sumIntSlice(g.colWidths[p.Column:p.Column+p.ColumnSpan]),
+		ArrangeChild(c, sumIntSlice(g.colWidths[p.Column:p.Column+p.ColumnSpan]),
 			sumIntSlice(g.rowHeights[p.Row:p.Row+p.RowSpan]))
 	}
 }

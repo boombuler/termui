@@ -61,7 +61,7 @@ Value            : Value ws                                        <<$0, nil>>
                  | int                                             <<str($0), nil>>
                  | float                                           <<str($0), nil>>
                  ;
-Values           : Value Pipe Values                               <<append($2.([]string), $0.(string)), nil>>
+Values           : Value Values                                    <<append([]string{$0.(string)}, $1.([]string)...), nil>>
                  | Value                                           <<[]string{$0.(string)}, nil>>
                  ;
 
@@ -84,9 +84,6 @@ Gt               : Gt ws
                  ;
 Semicolon        : Semicolon ws
                  | ";"
-                 ;
-Pipe             : Pipe ws
-                 | "|"
                  ;
 CBOpen           : CBOpen ws
                  | "{"

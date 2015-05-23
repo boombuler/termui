@@ -32,29 +32,42 @@ func (r Renderer) RenderChild(e Element, width, height, xOffset, yOffset int) {
 	fg := ForegroundProperty.Get(e)
 	bg := BackgroundProperty.Get(e)
 
+	margin := MarginProperty.Get(e)
+	width -= margin.Right + margin.Left
+	height -= margin.Bottom + margin.Top
+	xOffset += margin.Left
+	yOffset += margin.Top
+
+	var spaceLeft int
+	switch gravity & horizontal {
+	case Left, Left | Right:
+		spaceLeft = 0
+	case Right:
+		spaceLeft = width - elW
+	case NoGravity:
+		spaceLeft = (width - elW) / 2
+	}
+	xOffset += spaceLeft
+	width -= spaceLeft
+
+	var spaceTop int
+	switch gravity & vertical {
+	case Top, Top | Bottom:
+		spaceTop = 0
+	case Bottom:
+		spaceTop = height - elH
+	case NoGravity:
+		spaceTop = (height - elH) / 2
+	}
+	yOffset += spaceTop
+	height -= spaceTop
+
 	if r.cur != nil {
 		for x := xOffset; x < xOffset+width; x++ {
 			for y := yOffset; y < yOffset+height; y++ {
-				r.Set(x, y, ' ')
+				termbox.SetCell(x+r.x, y+r.y, ' ', fg, bg)
 			}
 		}
-	}
-
-	switch gravity & horizontal {
-	case Left, Left | Right:
-		xOffset += 0
-	case Right:
-		xOffset += width - elW
-	case NoGravity:
-		xOffset += (width - elW) / 2
-	}
-	switch gravity & vertical {
-	case Top, Top | Bottom:
-		yOffset += 0
-	case Bottom:
-		yOffset += height - elH
-	case NoGravity:
-		yOffset += (height - elH) / 2
 	}
 
 	e.Render(Renderer{
