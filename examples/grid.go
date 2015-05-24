@@ -6,14 +6,14 @@ import (
 )
 
 func main() {
-	grd := termui.NewGrid([]int{5, 1, termui.GridSizeAuto},
+	grd := termui.NewGrid(
 		[]int{
 			termui.GridSizeStar,
 			2,
 			termui.GridSizeAuto,
 			2,
 			2 * termui.GridSizeStar,
-		})
+		}, []int{5, 1, termui.GridSizeAuto})
 
 	grd.AddChild(termui.NewBorder(termui.NewText("One Star")), termui.GridPosition{0, 0, 1, 1})
 	grd.AddChild(termui.NewBorder(termui.NewText("Auto")), termui.GridPosition{2, 0, 1, 1})

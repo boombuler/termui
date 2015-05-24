@@ -44,7 +44,7 @@ type GridPosition struct {
 }
 
 // NewGrid returns a new Grid.
-func NewGrid(rowDefinitions, colDefinitions []int) *Grid {
+func NewGrid(colDefinitions, rowDefinitions []int) *Grid {
 	return &Grid{
 		ColumnDefinitions: colDefinitions,
 		RowDefinitions:    rowDefinitions,
@@ -67,6 +67,7 @@ func (g *Grid) AddChild(e Element, pos GridPosition) {
 		pos.ColumnSpan = 1
 	}
 	g.childPos[e] = pos
+	e.SetParent(g)
 }
 
 // Name returns the constant name of the grid for css styling.

@@ -107,6 +107,7 @@ func (gp GravityPropertyDefinition) FromStrings(s ...string) (interface{}, error
 		"right":  Right,
 		"bottom": Bottom,
 		"top":    Top,
+		"none":   NoGravity,
 	}
 
 	g := NoGravity

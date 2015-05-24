@@ -28,6 +28,14 @@ func (r Renderer) SetAttr(x, y int, ch rune, attr termbox.Attribute) {
 func (r Renderer) RenderChild(e Element, width, height, xOffset, yOffset int) {
 	elW, elH := e.Width(), e.Height()
 
+	if r.cur != nil {
+		for x := xOffset; x < xOffset+width; x++ {
+			for y := yOffset; y < yOffset+height; y++ {
+				r.Set(x, y, ' ')
+			}
+		}
+	}
+
 	gravity := GravityProperty.Get(e)
 	fg := ForegroundProperty.Get(e)
 	bg := BackgroundProperty.Get(e)
@@ -61,14 +69,6 @@ func (r Renderer) RenderChild(e Element, width, height, xOffset, yOffset int) {
 	}
 	yOffset += spaceTop
 	height -= spaceTop
-
-	if r.cur != nil {
-		for x := xOffset; x < xOffset+width; x++ {
-			for y := yOffset; y < yOffset+height; y++ {
-				termbox.SetCell(x+r.x, y+r.y, ' ', fg, bg)
-			}
-		}
-	}
 
 	e.Render(Renderer{
 		x:  r.x + xOffset,

@@ -10,7 +10,7 @@ type WrapPanel struct {
 
 	width, height int
 	orientation   Orientation
-	childpos      map[Element]rect
+	childpos      map[Element]*rect
 }
 
 type rect struct {
@@ -23,7 +23,7 @@ func NewWrapPanel(o Orientation) *WrapPanel {
 	wp := &WrapPanel{
 		orientation: o,
 		children:    new(ElementCollection),
-		childpos:    make(map[Element]rect),
+		childpos:    make(map[Element]*rect),
 	}
 	return wp
 }
@@ -83,8 +83,7 @@ func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange
 		for i := cIdx; i < v.Len(); i++ {
 			child := v.children.At(i)
 			cw, ch := MeasureChild(child, 0, 0)
-
-			if colHeight+ch > availableHeight && availableHeight != 0 {
+			if colHeight+ch > availableHeight && availableHeight > 0 {
 				if colHeight > height {
 					height = colHeight
 				}
@@ -92,7 +91,7 @@ func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange
 			}
 
 			if arrange {
-				v.childpos[child] = rect{
+				v.childpos[child] = &rect{
 					x:      width,
 					width:  cw,
 					height: ch,
@@ -106,6 +105,9 @@ func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange
 			cEnd = cIdx
 			cIdx++
 		}
+		if colHeight > height {
+			height = colHeight
+		}
 		width += colWidth
 
 		if arrange {
@@ -116,7 +118,6 @@ func (v *WrapPanel) measureVertical(availableWidth, availableHeight int, arrange
 				ArrangeChild(child, rect.width, rect.height)
 				rect.y = y
 				y += rect.height
-				v.childpos[child] = rect
 			}
 		}
 	}
@@ -137,7 +138,7 @@ func (v *WrapPanel) measureHorizontal(availableWidth, availableHeight int, arran
 			child := v.children.At(i)
 			cw, ch := MeasureChild(child, 0, 0)
 
-			if colWidth+cw > availableWidth && availableWidth != 0 {
+			if colWidth+cw > availableWidth && availableWidth > 0 {
 				if colWidth > width {
 					width = colWidth
 				}
@@ -145,7 +146,7 @@ func (v *WrapPanel) measureHorizontal(availableWidth, availableHeight int, arran
 			}
 
 			if arrange {
-				v.childpos[child] = rect{
+				v.childpos[child] = &rect{
 					y:      height,
 					width:  cw,
 					height: ch,
@@ -159,6 +160,9 @@ func (v *WrapPanel) measureHorizontal(availableWidth, availableHeight int, arran
 			cEnd = cIdx
 			cIdx++
 		}
+		if colWidth > width {
+			width = colWidth
+		}
 		height += colHeight
 
 		if arrange {
@@ -169,7 +173,6 @@ func (v *WrapPanel) measureHorizontal(availableWidth, availableHeight int, arran
 				ArrangeChild(child, rect.width, rect.height)
 				rect.x = x
 				x += rect.width
-				v.childpos[child] = rect
 			}
 		}
 	}
@@ -187,11 +190,10 @@ func (v *WrapPanel) Measure(availableWidth, availableHeight int) (width int, hei
 
 // Arrange sets the final size for the Element end tells it to Arrange itself
 func (v *WrapPanel) Arrange(finalWidth, finalHeight int) {
-	v.width, v.height = finalWidth, finalHeight
 	if v.orientation == Vertical {
-		v.measureVertical(finalWidth, finalHeight, true)
+		v.width, v.height = v.measureVertical(finalWidth, finalHeight, true)
 	} else {
-		v.measureHorizontal(finalWidth, finalHeight, true)
+		v.width, v.height = v.measureHorizontal(finalWidth, finalHeight, true)
 	}
 }
 

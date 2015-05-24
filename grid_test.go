@@ -50,7 +50,7 @@ func (f *fixedSizeBlock) Height() int {
 }
 
 func Test_GridLayoutColumnsAuto(t *testing.T) {
-	g := NewGrid([]int{GridSizeAuto}, []int{GridSizeAuto, 10})
+	g := NewGrid([]int{GridSizeAuto, 10}, []int{GridSizeAuto})
 	g.AddChild(newFixedBlock(100, 10), GridPosition{0, 0, 1, 1})
 	w, h := g.Measure(0, 0)
 	if w != 110 {
