@@ -2,6 +2,12 @@ package termui
 
 // MeasureChild measures the child and takes margin in account
 func MeasureChild(e Element, availableWidth, availableHeight int) (int, int) {
+	if availableHeight < 0 {
+		availableHeight = 0
+	}
+	if availableWidth < 0 {
+		availableWidth = 0
+	}
 	m := MarginProperty.Get(e)
 	mw := m.Left + m.Right
 	mh := m.Top + m.Bottom

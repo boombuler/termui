@@ -146,24 +146,24 @@ func (v *StackPanel) Render(rn Renderer) {
 
 // Width returns the width of the StackPanel
 func (v *StackPanel) Width() int {
-	if v.orientation == Vertical {
-		return v.width
+	if v.orientation == Horizontal {
+		w := 0
+		for _, val := range v.widths {
+			w += val
+		}
+		return w
 	}
-	s := 0
-	for _, child := range v.childs {
-		s += child.Width()
-	}
-	return s
+	return v.width
 }
 
 // Height returns the height of the StackPanel.
 func (v *StackPanel) Height() int {
-	if v.orientation == Horizontal {
-		return v.height
+	if v.orientation == Vertical {
+		h := 0
+		for _, val := range v.heights {
+			h += val
+		}
+		return h
 	}
-	s := 0
-	for _, child := range v.childs {
-		s += child.Height()
-	}
-	return s
+	return v.height
 }
