@@ -8,7 +8,7 @@ TermUI is a styleable UI lib for console applications. It consists of two parts:
 
 ## Elements
 For now there are only a few elements:
-* `Text` is for basic text outpu
+* `Text` is for basic text output
 * `Border` draws a border around a given child
 * `TextBorder` like a border but it also draws some text on the top left corner of the border.
 * `TextBox` allows the user to enter text.
